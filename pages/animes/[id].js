@@ -49,8 +49,8 @@ export default function AnimePage() {
             {/* Image Box Start */}
             <Center flex="1">
               <Flex p="4%" pl="0%">
-                <Link href={pageProps.mal_url}>
-                  <Image src={pageProps.image} cursor="pointer" />
+                <Link href={pageProps.mal_url} passHref>
+                  <Image src={pageProps.image} cursor="pointer" alt={pageProps.title} />
                 </Link>
               </Flex>
             </Center>
@@ -67,7 +67,7 @@ export default function AnimePage() {
                 <Box>
                   <Grid templateColumns='repeat(12, 1fr)' gap={6}>
                     {pageProps.links.map((link, index) => (
-                        <Button onClick={() => window.open(link, "_blank")}>{index + 1}</Button>
+                        <Button key={index} onClick={() => window.open(link, "_blank")}>{index + 1}</Button>
                     ))}
                   </Grid>
                 </Box>
