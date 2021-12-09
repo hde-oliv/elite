@@ -2,9 +2,11 @@ import { Box, Button, Flex, IconButton, Input, useColorMode, Icon, Text, Image, 
 import { MoonIcon, SunIcon, LinkIcon } from "@chakra-ui/icons";
 import MenuDrawer from "./MenuDrawer";
 import { SiDiscord, SiFacebook, SiGithub } from 'react-icons/si';
+import { useRouter } from "next/router";
 
 export default function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();
+  const router = useRouter();
   const links = {
     discord: "/clown",
     facebook: "/clown",
@@ -15,7 +17,7 @@ export default function NavBar() {
     <Box pl="5%" pr="5%" pt="1.5%" pb="1.5%">
       <Flex p="0%">
         <Flex flex="1" justifyContent="start" mr="auto">
-            <Heading>elite fansub</Heading>
+            <Heading onClick={() => router.push('/')} cursor="pointer">elite fansub</Heading>
         </Flex>
         <Flex flex="3" justifyContent="center" alignSelf="center">
           <Input placeholder="Pesquisar" />
