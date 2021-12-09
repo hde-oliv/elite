@@ -4,7 +4,6 @@ import NavBar from "../../components/NavBar";
 
 export default function AnimePage({ anime }) {
 
-  // TODO: Change layout when mobile have less than 800px
   return (
     <Flex flexDirection="column" height="100vh">
       <NavBar pd="auto" justifyContent="start" />
