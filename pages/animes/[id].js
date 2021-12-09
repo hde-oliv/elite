@@ -9,7 +9,7 @@ export default function AnimePage({ anime }) {
       <NavBar pd="auto" justifyContent="start" />
       <Box
         p="5%"
-        pt="3%"
+        pt="2%"
         pb="auto"
         justifyContent="end"
         border="px"
