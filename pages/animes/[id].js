@@ -2,55 +2,33 @@ import { Flex, Text, Box, Image, Center, VStack, Grid, GridItem, Button,} from "
 import Link from "next/link";
 import NavBar from "../../components/NavBar";
 
-export default function AnimePage() {
-  const pageProps = {
-    title: "Tsugu Tsugumomo",
-    description:
-      "Um garoto tímido de 16 anos, Yuuki Rito, não consegue declarar seu amor por Sairenji Haruna – uma colega de classe e sua paixão desde o fundamental. Infelizmente, a situação se torna ainda mais catastrófica quando uma garota misteriosa e completamente nua aparece em sua banheira.",
-    mal_url: "https://myanimelist.net/anime/39469/",
-    image: "https://cdn.myanimelist.net/images/anime/1885/104633l.webp",
-    image2: "https://i.imgur.com/1trZzqW.jpg",
-    links: [
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-      "/clown",
-    ],
-    torrent: "/clown",
-  };
+export default function AnimePage({ anime }) {
 
   // TODO: Change layout when mobile have less than 800px
   return (
     <Flex flexDirection="column" height="100vh">
-      <NavBar pd="auto" justifyContent="start"/>
-      <Box p="5%" pt="3%" pb="auto" justifyContent="end" border="px" borderColor="gray.100">
+      <NavBar pd="auto" justifyContent="start" />
+      <Box
+        p="5%"
+        pt="3%"
+        pb="auto"
+        justifyContent="end"
+        border="px"
+        borderColor="gray.100"
+      >
         <Box>
-          <Flex boxShadow='lg' p='6' rounded='md' borderRadius="md">
+          <Flex boxShadow="lg" p="6" rounded="md" borderRadius="md">
             {/* Image Box Start */}
             <Center flex="1">
               <Flex p="4%" pl="0%">
-                <Link href={pageProps.mal_url} passHref>
-                  <Image src={pageProps.image} cursor="pointer" alt={pageProps.title} />
+                <Link href={anime.mal_url} passHref>
+                  <Image
+                    src={anime.image}
+                    cursor="pointer"
+                    maxHeight="600px"
+                    maxWidth="439px"
+                    alt={anime.title}
+                  />
                 </Link>
               </Flex>
             </Center>
@@ -59,22 +37,49 @@ export default function AnimePage() {
             <Box flex="2" pt="1%">
               <VStack spacing="4%">
                 <Text fontSize="5xl" as="b">
-                  {pageProps.title}
+                  {anime.title}
                 </Text>
                 <Text fontSize="md" textAlign="center">
-                  {pageProps.description}
+                  {anime.description}
                 </Text>
                 <Box>
-                  <Grid templateColumns='repeat(12, 1fr)' gap={6}>
-                    {pageProps.links.map((link, index) => (
-                        <Button key={index} onClick={() => window.open(link, "_blank")}>{index + 1}</Button>
-                    ))}
-                  </Grid>
+                  {anime.links.length != 1 ? (
+                    <Grid templateColumns="repeat(12, 1fr)" gap={6}>
+                      {anime.links.map((link, index) => (
+                        <Button
+                          key={index}
+                          onClick={() => window.open(link, "_blank")}
+                        >
+                          {index + 1}
+                        </Button>
+                      ))}
+                    </Grid>
+                  ) : (
+                    <Button
+                      onClick={() => window.open(anime.links[0], "_blank")}
+                    >
+                      Link
+                    </Button>
+                  )}
                 </Box>
                 <Box>
-                  <Button onClick={() => window.open(pageProps.mal_url, "_blank")}>Torrent</Button>
+                  {anime.torrents.length > 0 ? (
+                    <Flex flexDirection="row">
+                      {anime.torrents.map((torrent, index) => (
+                        <Button
+                          key={index}
+                          onClick={() => window.open(torrent, "_blank")}
+                          mr="4%"
+                        >
+                          Torrent
+                        </Button>
+                      ))}
+                    </Flex>
+                  ) : (
+                    <></>
+                  )}
                 </Box>
-              {/* Text Box End */}
+                {/* Text Box End */}
               </VStack>
             </Box>
           </Flex>
@@ -82,4 +87,13 @@ export default function AnimePage() {
       </Box>
     </Flex>
   );
+}
+
+export async function getServerSideProps({ params }) {
+    const req = await fetch(`http://localhost:3000/${params.id}.json`);
+    const data = await req.json();
+
+    return {
+        props: { anime: data },
+    }
 }
