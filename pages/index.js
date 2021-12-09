@@ -27,11 +27,11 @@ export default function Home({ posts }) {
                   <Heading textAlign="start" mb="5%">{post.title}</Heading>
                   <Text noOfLines={[1, 2, 3, 4, 5]} maxHeight="100%">{post.text}</Text>
                   <Flex justifyContent="end" justifySelf="end" mt="auto">
-                    <Button>
-                      <a href={`/post/${post.id}`}>Página do Anime</a>
+                    <Button mr="2%" onClick={() => router.push(`/posts/${post.date}/${post.name}`)}>
+                      Leia Mais
                     </Button>
-                    <Button>
-                      <a href={`/post/${post.id}`}>Leia Mais</a>
+                    <Button onClick={() => router.push(`/animes/${post.anime}`)}>
+                      Página do Anime
                     </Button>
                   </Flex>
                 </Flex>
