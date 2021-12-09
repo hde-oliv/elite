@@ -1,9 +1,4 @@
-import { Flex, Text, Box, Image, Center, VStack, Spacer, List,
-  ListItem,
-  ListIcon,
-  OrderedList,
-  UnorderedList,
-  Button,} from "@chakra-ui/react";
+import { Flex, Text, Box, Image, Center, VStack, Grid, GridItem, Button,} from "@chakra-ui/react";
 import Link from "next/link";
 import NavBar from "../../components/NavBar";
 
@@ -19,6 +14,27 @@ export default function AnimePage() {
       "https://www.google.com",
       "https://www.facebook.com",
       "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
+      "https://www.twitter.com",
     ],
   };
 
@@ -27,13 +43,13 @@ export default function AnimePage() {
     <Flex flexDirection="column" height="100vh">
       <NavBar pd="auto" justifyContent="start"/>
       <Box p="5%" pt="3%" pb="auto" justifyContent="end" border="px" borderColor="gray.100">
-        <Box pt="2%" pb="2%">
-          <Flex>
+        <Box>
+          <Flex boxShadow='lg' p='6' rounded='md'>
             {/* Image Box Start */}
             <Center flex="1">
               <Flex p="4%" pl="0%">
                 <Link href={pageProps.mal_url}>
-                  <Image src={pageProps.image} borderRadius="4"/>
+                  <Image src={pageProps.image} cursor="pointer" />
                 </Link>
               </Flex>
             </Center>
@@ -48,16 +64,11 @@ export default function AnimePage() {
                   {pageProps.description}
                 </Text>
                 <Box>
-                  <List>
+                  <Grid templateColumns='repeat(12, 1fr)' gap={6}>
                     {pageProps.links.map((link, index) => (
-                      <ListItem
-                        key={index}
-                        onClick={() => window.open(link, "_blank")}
-                      >
-                        <Button>{index}</Button>
-                      </ListItem>
+                        <Button onClick={() => window.open(link, "_blank")}>{index + 1}</Button>
                     ))}
-                  </List>
+                  </Grid>
                 </Box>
               {/* Text Box End */}
               </VStack>
