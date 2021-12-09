@@ -11,40 +11,41 @@ export default function AnimePage() {
     image: "https://cdn.myanimelist.net/images/anime/1885/104633l.webp",
     image2: "https://i.imgur.com/1trZzqW.jpg",
     links: [
-      "https://www.google.com",
-      "https://www.facebook.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
-      "https://www.twitter.com",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
+      "/clown",
     ],
+    torrent: "/clown",
   };
 
-  // Change layout when mobile have less than 800px
+  // TODO: Change layout when mobile have less than 800px
   return (
     <Flex flexDirection="column" height="100vh">
       <NavBar pd="auto" justifyContent="start"/>
       <Box p="5%" pt="3%" pb="auto" justifyContent="end" border="px" borderColor="gray.100">
         <Box>
-          <Flex boxShadow='lg' p='6' rounded='md'>
+          <Flex boxShadow='lg' p='6' rounded='md' borderRadius="md">
             {/* Image Box Start */}
             <Center flex="1">
               <Flex p="4%" pl="0%">
@@ -69,6 +70,9 @@ export default function AnimePage() {
                         <Button onClick={() => window.open(link, "_blank")}>{index + 1}</Button>
                     ))}
                   </Grid>
+                </Box>
+                <Box>
+                  <Button onClick={() => window.open(pageProps.mal_url, "_blank")}>Torrent</Button>
                 </Box>
               {/* Text Box End */}
               </VStack>
