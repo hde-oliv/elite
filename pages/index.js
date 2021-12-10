@@ -7,8 +7,6 @@ import { getPosts} from "../lib/Firebase";
 export default function Home({ posts }) {
   const router = useRouter();
 
-  console.log({posts})
-
   return (
     <Flex flexDirection="column">
       <NavBar pd="auto"/>
