@@ -1,10 +1,13 @@
-import { Flex, Image, Box, Text, Button, Divider, Center, Heading } from "@chakra-ui/react";
+import { Flex, Image, Box, Text, Button, Center, Heading } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import NavBar from "../components/NavBar";
 import { ArrowForwardIcon } from "@chakra-ui/icons"
+import { getPosts} from "../lib/Firebase";
 
 export default function Home({ posts }) {
   const router = useRouter();
+
+  console.log({posts})
 
   return (
     <Flex flexDirection="column">
@@ -54,14 +57,10 @@ export default function Home({ posts }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
-    const request1 = await fetch(`http://localhost:3000/posts/mieruko-09.json`);
-    const mieruko8 = await request1.json();
-    const request2 = await fetch(`http://localhost:3000/posts/mieruko-08.json`)
-    const mieruko9 = await request2.json();
-
+export async function getServerSideProps() {
+  const postList = await getPosts();
     return {
-        props: { posts: [ mieruko8, mieruko9, mieruko8, mieruko9, mieruko8 ] },
+        props: { posts: postList },
     }
 }
 

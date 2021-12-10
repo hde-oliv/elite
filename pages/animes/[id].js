@@ -1,6 +1,7 @@
-import { Flex, Text, Box, Image, Center, VStack, Grid, GridItem, Button,} from "@chakra-ui/react";
+import { Flex, Text, Box, Image, Center, VStack, Grid, Button,} from "@chakra-ui/react";
 import Link from "next/link";
 import NavBar from "../../components/NavBar";
+import {getAnime} from "../../lib/Firebase";
 
 export default function AnimePage({ anime }) {
 
@@ -42,7 +43,7 @@ export default function AnimePage({ anime }) {
                   {anime.description}
                 </Text>
                 <Box>
-                  {anime.links.length != 1 ? (
+                  {anime.links.length !== 1 ? (
                     <Grid templateColumns="repeat(12, 1fr)" gap={6}>
                       {anime.links.map((link, index) => (
                         <Button
@@ -89,10 +90,9 @@ export default function AnimePage({ anime }) {
 }
 
 export async function getServerSideProps({ params }) {
-    const req = await fetch(`http://localhost:3000/${params.id}.json`);
-    const data = await req.json();
+    const animeData = await getAnime(params.id);
 
     return {
-        props: { anime: data },
+        props: { anime: animeData },
     }
 }
