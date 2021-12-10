@@ -41,9 +41,7 @@ export default function MenuDrawer() {
               <Button justifyContent="center" mt="5%" width="100%">Filmes</Button>
               <Button justifyContent="center" mt="5%" mb="5%" width="100%">Especiais</Button>
               <Divider size="2px" />
-              <Button justifyContent="center" mt="5%" width="100%">F.A.Q</Button>
               <Button justifyContent="center" mt="5%" width="100%">Staff</Button>
-              <Button justifyContent="center" mt="5%" width="100%">Contato</Button>
             </Flex>
           </DrawerBody>
         </DrawerContent>
