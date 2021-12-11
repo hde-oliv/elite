@@ -1,30 +1,28 @@
 import {
   Drawer,
   Flex,
-  Square,
   Divider,
-  Center,
   DrawerBody,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   Button,
   IconButton,
-  Input,
   DrawerContent,
   DrawerCloseButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useDisclosure } from "@chakra-ui/react";
 import React from "react";
+import {useRouter} from "next/router";
 
 export default function MenuDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+  const router = useRouter();
 
   return (
     <>
-      <IconButton ref={btnRef} onClick={onOpen} icon={<HamburgerIcon />} />
+      <IconButton aria-label="Menu" ref={btnRef} onClick={onOpen} icon={<HamburgerIcon />} />
       <Drawer
         isOpen={isOpen}
         placement="right"
@@ -47,7 +45,7 @@ export default function MenuDrawer() {
                 Especiais
               </Button>
               <Divider size="2px" />
-              <Button justifyContent="center" mt="5%" width="100%">
+              <Button justifyContent="center" mt="5%" width="100%" onClick={() => router.push('/staff')}>
                 Staff
               </Button>
             </Flex>
