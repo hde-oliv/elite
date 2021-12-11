@@ -13,14 +13,14 @@ import {
   Input,
   DrawerContent,
   DrawerCloseButton,
-} from '@chakra-ui/react'
-import { HamburgerIcon } from '@chakra-ui/icons'
-import { useDisclosure } from '@chakra-ui/react'
+} from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { useDisclosure } from "@chakra-ui/react";
 import React from "react";
 
 export default function MenuDrawer() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
 
   return (
     <>
@@ -37,11 +37,19 @@ export default function MenuDrawer() {
           <DrawerHeader>Menu</DrawerHeader>
           <DrawerBody>
             <Flex flexDirection="column" height="100%">
-              <Button justifyContent="center" mt="5%" width="100%">Animes</Button>
-              <Button justifyContent="center" mt="5%" width="100%">Filmes</Button>
-              <Button justifyContent="center" mt="5%" mb="5%" width="100%">Especiais</Button>
+              <Button justifyContent="center" mt="5%" width="100%">
+                Animes
+              </Button>
+              <Button justifyContent="center" mt="5%" width="100%">
+                Filmes
+              </Button>
+              <Button justifyContent="center" mt="5%" mb="5%" width="100%">
+                Especiais
+              </Button>
               <Divider size="2px" />
-              <Button justifyContent="center" mt="5%" width="100%">Staff</Button>
+              <Button justifyContent="center" mt="5%" width="100%">
+                Staff
+              </Button>
             </Flex>
           </DrawerBody>
         </DrawerContent>

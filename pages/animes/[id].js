@@ -1,10 +1,18 @@
-import { Flex, Text, Box, Image, Center, VStack, Grid, Button,} from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Box,
+  Image,
+  Center,
+  VStack,
+  Grid,
+  Button,
+} from "@chakra-ui/react";
 import Link from "next/link";
 import NavBar from "../../components/NavBar";
-import {getAnime} from "../../lib/Firebase";
+import { getAnime } from "../../lib/Firebase";
 
 export default function AnimePage({ anime }) {
-
   return (
     <Flex flexDirection="column" height="100vh">
       <NavBar pd="auto" justifyContent="start" />
@@ -79,20 +87,20 @@ export default function AnimePage({ anime }) {
                     <></>
                   )}
                 </Box>
-                {/* Text Box End */}
               </VStack>
             </Box>
           </Flex>
         </Box>
+        {/* Text Box End */}
       </Box>
     </Flex>
   );
 }
 
 export async function getServerSideProps({ params }) {
-    const animeData = await getAnime(params.id);
+  const animeData = await getAnime(params.id);
 
-    return {
-        props: { anime: animeData },
-    }
+  return {
+    props: { anime: animeData },
+  };
 }
