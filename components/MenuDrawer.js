@@ -35,7 +35,7 @@ export default function MenuDrawer() {
           <DrawerHeader>Menu</DrawerHeader>
           <DrawerBody>
             <Flex flexDirection="column" height="100%">
-              <Button justifyContent="center" mt="5%" width="100%">
+              <Button justifyContent="center" mt="5%" width="100%" onClick={() => router.push('/animes')}>
                 Animes
               </Button>
               <Button justifyContent="center" mt="5%" width="100%">
