@@ -38,11 +38,9 @@ export default function NavBar() {
         <Flex flex="3" justifyContent="center" alignSelf="center">
           <InputGroup>
             <Input placeholder="Pesquisar" />
-            <InputRightElement
-              children={
+            <InputRightElement>
                 <IconButton type="submit" size="md" icon={<SearchIcon />} />
-              }
-            />
+                </InputRightElement>
           </InputGroup>
         </Flex>
         <Flex flex="1" justifyContent="end" ml="auto">
