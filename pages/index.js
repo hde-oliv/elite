@@ -71,7 +71,7 @@ export default function Home({ posts }) {
                       mr="2%"
                       variant="outline"
                       onClick={() =>
-                        router.push(`/posts/${post.date}/${post.title}`)
+                        router.push(`/posts/${post.slug}`)
                       }
                     >
                       Leia Mais
