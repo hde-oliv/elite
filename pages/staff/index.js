@@ -3,15 +3,10 @@ import {
   Text,
   Box,
   Image,
-  Heading,
-  Center,
-  VStack,
   Grid,
-  Button,
+  Heading,
 } from "@chakra-ui/react";
-import Link from "next/link";
 import NavBar from "../../components/NavBar";
-import { getAnime } from "../../lib/Firebase";
 
 export default function staff() {
 
@@ -28,7 +23,7 @@ export default function staff() {
     <Flex flexDirection="column" height="100vh">
       <NavBar pd="auto" justifyContent="start" />
       <Box
-        p="25%"
+        p="5%"
         pt="2%"
         pb="auto"
         justifyContent="end"
@@ -36,15 +31,19 @@ export default function staff() {
         borderColor="gray.100"
       >
         <Box>
+          <Grid templateColumns="repeat(2, 10fr)" columnGap="5%" rowGap="2%">
           {personList.map((person, index) => (
             <Flex key={index} boxShadow="lg" p="6" rounded="md" borderRadius="md" mb="3%">
-              <Box pr="3%" pl="3%">
-                <Image src={person.image} maxWidth="150px" maxHeight="150px" />
-                <Heading>{person.name}</Heading>
-                <Text>{person.description}</Text>
-              </Box>
+              <Flex pr="3%" pl="3%" width="100%">
+                <Image alt={person.name} src={person.image} maxWidth="150px" maxHeight="150px" />
+                <Box width="100%" alignSelf="center" textAlign="right">
+                  <Heading>{person.name}</Heading>
+                  <Text as="i" color="grey">{person.description}</Text>
+                </Box>
+              </Flex>
             </Flex>
           ))}
+          </Grid>
         </Box>
       </Box>
     </Flex>
