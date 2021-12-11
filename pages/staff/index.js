@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import NavBar from "../../components/NavBar";
 
-export default function staff() {
+export default function Staff() {
 
   const person = {
     name: "sakuta_arrls",
