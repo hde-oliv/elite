@@ -11,18 +11,10 @@ import {
 import { useRouter } from "next/router";
 import NavBar from "../components/NavBar";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { getPosts } from "../lib/Firebase";
+import { getPosts, getStatus } from "../lib/Firebase";
 
-export default function Home({ posts }) {
+export default function Home({ posts, status }) {
   const router = useRouter();
-
-  const status = {
-    name: "Mieruko",
-    status: "Aguardando lançamento",
-    next: "Ep. 10",
-  };
-
-  const statusList = [status, status, status];
 
   return (
     <Flex flexDirection="column">
@@ -106,9 +98,9 @@ export default function Home({ posts }) {
             >
               <Heading size="md">Status dos Projetos</Heading>
               <Divider size="2px" pt="4%" />
-              {statusList.map((status, index) => (
+              {status.map((status, index) => (
                 <Box key={index} textAlign="left" pl="2%" pt="6%">
-                  <Heading size="sm">• {status.name}</Heading>
+                  <Heading size="sm">• {status.title}</Heading>
                   <Text as="i" color="grey">
                     {status.next} - {status.status}
                   </Text>
@@ -126,7 +118,9 @@ export default function Home({ posts }) {
 
 export async function getServerSideProps() {
   const postList = await getPosts();
+  const statusList = await getStatus();
+
   return {
-    props: { posts: postList },
+    props: { posts: postList, status: statusList },
   };
 }
