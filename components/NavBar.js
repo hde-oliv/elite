@@ -11,6 +11,7 @@ import {
   Text,
   Image,
   Heading,
+  useColorModeValue
 } from "@chakra-ui/react";
 import { MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 import MenuDrawer from "./MenuDrawer";
@@ -27,8 +28,10 @@ export default function NavBar() {
     github: "https://github.com/hde-oliv/elite",
   };
 
+  const bg = useColorModeValue('white', 'gray.800');
+
   return (
-    <Box pl="5%" pr="5%" pt="1.5%" pb="1.5%">
+    <Box pl="5%" pr="5%" pt="1.5%" pb="1.5%" position="sticky" top="0" bg={bg}>
       <Flex p="0%">
         <Flex flex="1" justifyContent="start" mr="auto">
           <Heading onClick={() => router.push("/")} cursor="pointer">
