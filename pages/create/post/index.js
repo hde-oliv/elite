@@ -4,7 +4,7 @@ import {
   Textarea,
   VStack,
   Center,
-  Input, Flex, Box, Grid, Image, Heading, Text, Select, Button
+  Input, Flex, Box, Heading, Select, Button
 } from '@chakra-ui/react'
 import { useToast } from '@chakra-ui/react'
 import { useState } from "react";
@@ -46,7 +46,24 @@ export default function CreatePostPage() {
       anime,
     }
     console.log(post);
-    setPost(post).then((res) => console.log({res}))
+    setPost(post).then((res) => {
+      if (res) {
+        toast({
+          title: `Post created`,
+          status: "success",
+          isClosable: true,
+        })
+        setImage("");
+        setText("");
+        setTitle("");
+      } else {
+        toast({
+          title: `Error`,
+          status: "error",
+          isClosable: true,
+        })
+      }
+    })
   }
   return (
     <Flex flexDirection="column" height="100vh">
