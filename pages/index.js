@@ -59,14 +59,15 @@ export default function Home({ posts }) {
                   flexDirection="column"
                   maxWidth="100%"
                   maxHeight="100%"
+                  width="100%"
                 >
-                  <Heading textAlign="start" mb="5%">
+                  <Heading textAlign="start" mb="4%">
                     {post.title}
                   </Heading>
-                  <Text noOfLines={[1, 2, 3, 4, 5]} maxHeight="100%">
+                  <Text noOfLines={[1, 2, 3, 4, 5, 6, 7, 8, 9]} maxHeight="100%" height="100%">
                     {post.text}
                   </Text>
-                  <Flex justifyContent="end" justifySelf="end" mt="auto">
+                  <Flex justifyContent="end" justifySelf="end" mt="3%" width="100%">
                     <Button
                       mr="2%"
                       variant="outline"
