@@ -1,9 +1,9 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { ColorModeScript } from "@chakra-ui/react";
+import { AppProps } from "next/app";
 import theme from "../lib/Theme";
 
-// TODO: Change layout when mobile have less than 800px
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />

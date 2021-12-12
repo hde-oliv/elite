@@ -12,8 +12,11 @@ import { useRouter } from "next/router";
 import NavBar from "../components/NavBar";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { getPosts } from "../lib/Firebase";
+import { GetServerSideProps } from 'next'
+import Post from "../types/Post";
+import PostList from "../types/PostList";
 
-export default function Home({ posts }) {
+export default function HomePage({ posts }: PostList) {
   const router = useRouter();
 
   const status = {
@@ -26,7 +29,7 @@ export default function Home({ posts }) {
 
   return (
     <Flex flexDirection="column">
-      <NavBar pd="auto" />
+      <NavBar />
       <Flex pt="2%">
         {/* Post Box Start */}
         <Flex flex="4" ml="5%">
@@ -59,6 +62,7 @@ export default function Home({ posts }) {
                   flexDirection="column"
                   maxWidth="100%"
                   maxHeight="100%"
+                  width="100%"
                 >
                   <Heading textAlign="start" mb="5%">
                     {post.title}
@@ -66,7 +70,7 @@ export default function Home({ posts }) {
                   <Text noOfLines={[1, 2, 3, 4, 5]} maxHeight="100%">
                     {post.text}
                   </Text>
-                  <Flex justifyContent="end" justifySelf="end" mt="auto">
+                  <Flex justifyContent="end" justifySelf="end" mt="auto" width="100%">
                     <Button
                       mr="2%"
                       variant="outline"
@@ -123,8 +127,9 @@ export default function Home({ posts }) {
   );
 }
 
-export async function getServerSideProps() {
-  const postList = await getPosts();
+export const getServerSideProps: GetServerSideProps = async () => {
+  const postList: Post[] = await getPosts();
+
   return {
     props: { posts: postList },
   };

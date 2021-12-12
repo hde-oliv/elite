@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import NavBar from "../../components/NavBar";
 
-export default function Staff() {
+export default function StaffPage() {
 
   const person = {
     name: "sakuta_arrls",
@@ -21,7 +21,7 @@ export default function Staff() {
   ]
   return (
     <Flex flexDirection="column" height="100vh">
-      <NavBar pd="auto" justifyContent="start" />
+      <NavBar />
       <Box
         p="5%"
         pt="2%"

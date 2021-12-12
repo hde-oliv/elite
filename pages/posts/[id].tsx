@@ -3,8 +3,11 @@ import {Box, Button, Center, Divider, Flex, Grid, Heading, Image, Link, Text, VS
 import NavBar from "../../components/NavBar";
 import {useRouter} from "next/router";
 import Head from 'next/head'
+import { GetServerSideProps } from "next";
+import Post from "../../types/Post";
+import { InferGetServerSidePropsType } from 'next'
 
-export default function Post({ post }) {
+export default function PostPage({ post }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
 
   return (
@@ -14,7 +17,7 @@ export default function Post({ post }) {
           {post.title}
         </title>
       </Head>
-      <NavBar pd="auto" justifyContent="start" />
+      <NavBar />
       <Box
         p="5%"
         pt="2%"
@@ -60,8 +63,9 @@ export default function Post({ post }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
-  const postData = await getPost(params.id);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const id = context.params?.id;
+  const postData = await getPost(id as string);
 
   return {
     props: { post: postData },

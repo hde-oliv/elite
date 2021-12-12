@@ -3,13 +3,16 @@ import NavBar from "../../components/NavBar";
 import {ArrowForwardIcon} from "@chakra-ui/icons";
 import {getAnimes} from "../../lib/Firebase";
 import {useRouter} from "next/router";
+import { GetServerSideProps } from 'next'
+import AnimeList from "../../types/AnimeList";
+import Anime from "../../types/Anime";
 
-export default function Animes({ animeList }) {
+export default function AnimesPage({ animes }: AnimeList) {
   const router = useRouter();
 
   return (
     <Flex flexDirection="column" height="100vh">
-      <NavBar pd="auto" justifyContent="start" />
+      <NavBar />
       <Box
         p="5%"
         pt="2%"
@@ -20,7 +23,7 @@ export default function Animes({ animeList }) {
       >
         <Box>
           <Grid templateColumns="repeat(3, 1fr)" columnGap="5%" rowGap="2%">
-            {animeList.map((anime, index) => (
+            {animes.map((anime, index) => (
               <Flex key={index} boxShadow="lg" p="6" rounded="md" borderRadius="md" mb="3%">
                 <Flex pr="3%" pl="3%" width="100%">
                   <Image alt={anime.title} src={anime.image} maxHeight="250px" />
@@ -46,10 +49,12 @@ export default function Animes({ animeList }) {
   );
 }
 
-export async function getServerSideProps() {
-  const animesData = await getAnimes();
+
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const animesData: Anime[] = await getAnimes();
 
   return {
-    props: { animeList: animesData },
+    props: { animes: animesData },
   };
 }

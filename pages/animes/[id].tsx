@@ -11,11 +11,15 @@ import {
 import Link from "next/link";
 import NavBar from "../../components/NavBar";
 import { getAnime } from "../../lib/Firebase";
+import { GetServerSideProps } from 'next'
+import Anime from "../../types/Anime";
+import { InferGetServerSidePropsType } from 'next'
+import { Key } from "react";
 
-export default function AnimePage({ anime }) {
+export default function AnimePage({ anime }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <Flex flexDirection="column" height="100vh">
-      <NavBar pd="auto" justifyContent="start" />
+      <NavBar />
       <Box
         p="5%"
         pt="2%"
@@ -53,7 +57,7 @@ export default function AnimePage({ anime }) {
                 <Box>
                   {anime.links.length !== 1 ? (
                     <Grid templateColumns="repeat(12, 1fr)" gap={6}>
-                      {anime.links.map((link, index) => (
+                      {anime.links.map((link: string, index: string) => (
                         <Button
                           key={index}
                           onClick={() => window.open(link, "_blank")}
@@ -73,7 +77,7 @@ export default function AnimePage({ anime }) {
                 <Box>
                   {anime.torrents.length > 0 ? (
                     <Flex flexDirection="row">
-                      {anime.torrents.map((torrent, index) => (
+                      {anime.torrents.map((torrent: string, index: string) => (
                         <Button
                           key={index}
                           onClick={() => window.open(torrent, "_blank")}
@@ -97,8 +101,9 @@ export default function AnimePage({ anime }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
-  const animeData = await getAnime(params.id);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const id = context.params?.id;
+  const animeData = await getAnime(id as string);
 
   return {
     props: { anime: animeData },

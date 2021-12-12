@@ -22,7 +22,9 @@ export default function MenuDrawer() {
 
   return (
     <>
-      <IconButton aria-label="Menu" ref={btnRef} onClick={onOpen} icon={<HamburgerIcon />} />
+      <Button aria-label="Menu" ref={btnRef} onClick={onOpen} leftIcon={<HamburgerIcon />}>
+        Menu
+      </Button>
       <Drawer
         isOpen={isOpen}
         placement="right"
@@ -35,6 +37,10 @@ export default function MenuDrawer() {
           <DrawerHeader>Menu</DrawerHeader>
           <DrawerBody>
             <Flex flexDirection="column" height="100%">
+              <Button justifyContent="center" mt="5%" width="100%" mb="5%" onClick={() => router.push('/')}>
+                Home
+              </Button>
+              <Divider size="2px" />
               <Button justifyContent="center" mt="5%" width="100%" onClick={() => router.push('/animes')}>
                 Animes
               </Button>

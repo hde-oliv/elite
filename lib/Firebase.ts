@@ -5,7 +5,12 @@ import {
   getFirestore,
   doc,
   getDoc,
-} from "firebase/firestore/lite";
+  serverTimestamp,
+  addDoc,
+  setDoc
+} from "firebase/firestore";
+import Anime from "../types/Anime";
+import Post from "../types/Post";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -18,22 +23,22 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const database = getFirestore(app);
+const database = getFirestore();
 
 export async function getPosts() {
   const postsCol = collection(database, "posts");
   const postSnapshot = await getDocs(postsCol);
-  return postSnapshot.docs.map((doc) => doc.data());
+  return postSnapshot.docs.map((doc) => doc.data() as Post);
 }
 
-export async function getAnime(name) {
+export async function getAnime(name: string) {
   const animeRef = doc(database, "animes", name);
   const docSnap = await getDoc(animeRef);
-  if (docSnap.exists()) return docSnap.data();
+  if (docSnap.exists()) return docSnap.data() as Anime;
   return null;
 }
 
-export async function getPost(name) {
+export async function getPost(name: string) {
   const postRef = doc(database, "posts", name);
   const postSnap = await getDoc(postRef);
   if (postSnap.exists()) return postSnap.data();
@@ -43,5 +48,23 @@ export async function getPost(name) {
 export async function getAnimes() {
   const animesCol = collection(database, "animes")
   const animesSnap = await getDocs(animesCol);
-  return animesSnap.docs.map((doc) => doc.data())
+  return animesSnap.docs.map((doc) => doc.data() as Anime)
+}
+
+export async function setPost(post: Post) {
+const app = initializeApp(firebaseConfig);
+const database = getFirestore(app);
+  try {
+    await setDoc(doc(database, "posts", post.slug), {
+    title: post.title,
+    slug: post.slug,
+    image: post.image,
+    anime: post.anime,
+    text: post.text,
+    author: post.author,
+    });
+    console.log("Post added");
+  } catch (e) {
+    console.log(e);
+  }
 }
