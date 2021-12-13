@@ -1,8 +1,15 @@
-import {Box, Button, Center, Divider, Flex, Grid, Heading, Image, Text} from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  Image,
+} from "@chakra-ui/react";
 import NavBar from "../../components/NavBar";
-import {ArrowForwardIcon} from "@chakra-ui/icons";
-import {getFilms} from "../../lib/Firebase";
-import {useRouter} from "next/router";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { getFilms } from "../../lib/Firebase";
+import { useRouter } from "next/router";
 
 export default function Films({ filmList }) {
   const router = useRouter();
@@ -21,10 +28,22 @@ export default function Films({ filmList }) {
         <Box>
           <Grid templateColumns="repeat(3, 1fr)" columnGap="5%" rowGap="2%">
             {filmList.map((film, index) => (
-              <Flex key={index} boxShadow="lg" p="6" rounded="md" borderRadius="md" mb="3%">
+              <Flex
+                key={index}
+                boxShadow="lg"
+                p="6"
+                rounded="md"
+                borderRadius="md"
+                mb="3%"
+              >
                 <Flex pr="3%" pl="3%" width="100%">
                   <Image alt={film.title} src={film.image} maxHeight="250px" />
-                  <Box width="100%" alignSelf="center" textAlign="center" pl="8%">
+                  <Box
+                    width="100%"
+                    alignSelf="center"
+                    textAlign="center"
+                    pl="8%"
+                  >
                     <Heading fontSize="3xl">{film.title}</Heading>
                     <Button
                       size="sm"

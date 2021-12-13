@@ -56,16 +56,23 @@ export default function Home({ posts, status }) {
                   <Heading textAlign="start" mb="4%">
                     {post.title}
                   </Heading>
-                  <Text noOfLines={[1, 2, 3, 4, 5, 6, 7, 8, 9]} maxHeight="100%" height="100%">
+                  <Text
+                    noOfLines={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+                    maxHeight="100%"
+                    height="100%"
+                  >
                     {post.text}
                   </Text>
-                  <Flex justifyContent="end" justifySelf="end" mt="3%" width="100%">
+                  <Flex
+                    justifyContent="end"
+                    justifySelf="end"
+                    mt="3%"
+                    width="100%"
+                  >
                     <Button
                       mr="2%"
                       variant="outline"
-                      onClick={() =>
-                        router.push(`/posts/${post.slug}`)
-                      }
+                      onClick={() => router.push(`/posts/${post.slug}`)}
                     >
                       Leia Mais
                     </Button>

@@ -1,8 +1,17 @@
-import {getPost} from "../../lib/Firebase";
-import {Box, Button, Center, Divider, Flex, Grid, Heading, Image, Link, Text, VStack} from "@chakra-ui/react";
+import { getPost } from "../../lib/Firebase";
+import {
+  Box,
+  Center,
+  Divider,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import NavBar from "../../components/NavBar";
-import {useRouter} from "next/router";
-import Head from 'next/head'
+import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function Post({ post }) {
   const router = useRouter();
@@ -10,9 +19,7 @@ export default function Post({ post }) {
   return (
     <Flex flexDirection="column" height="100vh">
       <Head>
-        <title>
-          {post.title}
-        </title>
+        <title>{post.title}</title>
       </Head>
       <NavBar pd="auto" justifyContent="start" />
       <Box
@@ -24,17 +31,23 @@ export default function Post({ post }) {
         borderColor="gray.100"
       >
         <Box>
-          <Flex boxShadow="lg" p="6" rounded="md" borderRadius="md" flexDirection="column">
+          <Flex
+            boxShadow="lg"
+            p="6"
+            rounded="md"
+            borderRadius="md"
+            flexDirection="column"
+          >
             {/* Image Box Start */}
             <Center flex="1">
               <Flex p="4%" pb="2%" pt="2%">
-                  <Image
-                    src={post.image}
-                    cursor="pointer"
-                    maxHeight="480px"
-                    alt={post.title}
-                    onClick={() => router.push(`/animes/${post.anime}`)}
-                  />
+                <Image
+                  src={post.image}
+                  cursor="pointer"
+                  maxHeight="480px"
+                  alt={post.title}
+                  onClick={() => router.push(`/animes/${post.anime}`)}
+                />
               </Flex>
             </Center>
             {/* Image Box End */}
@@ -44,9 +57,7 @@ export default function Post({ post }) {
             {/* Text Box Start */}
             <Box flex="1" pt="1%" pb="2%">
               <VStack spacing="2%">
-                <Heading>
-                  {post.title}
-                </Heading>
+                <Heading>{post.title}</Heading>
                 <Text pr="4%" fontSize="lg" pl="4%">
                   {post.text}
                 </Text>

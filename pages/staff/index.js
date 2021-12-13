@@ -1,16 +1,8 @@
-import {
-  Flex,
-  Text,
-  Box,
-  Image,
-  Grid,
-  Heading,
-} from "@chakra-ui/react";
+import { Flex, Text, Box, Image, Grid, Heading } from "@chakra-ui/react";
 import NavBar from "../../components/NavBar";
 import { getStaff } from "../../lib/Firebase";
 
-export default function Staff({staff}) {
-
+export default function Staff({ staff }) {
   return (
     <Flex flexDirection="column" height="100vh">
       <NavBar pd="auto" justifyContent="start" />
@@ -24,17 +16,32 @@ export default function Staff({staff}) {
       >
         <Box>
           <Grid templateColumns="repeat(2, 10fr)" columnGap="5%" rowGap="2%">
-          {staff.map((person, index) => (
-            <Flex key={index} boxShadow="lg" p="6" rounded="md" borderRadius="md" mb="3%">
-              <Flex pr="3%" pl="3%" width="100%">
-                <Image alt={person.name} src={person.image} maxWidth="150px" maxHeight="150px" borderRadius="md" />
-                <Box width="100%" alignSelf="center" textAlign="right">
-                  <Heading>{person.name}</Heading>
-                  <Text as="i" color="grey">{person.description}</Text>
-                </Box>
+            {staff.map((person, index) => (
+              <Flex
+                key={index}
+                boxShadow="lg"
+                p="6"
+                rounded="md"
+                borderRadius="md"
+                mb="3%"
+              >
+                <Flex pr="3%" pl="3%" width="100%">
+                  <Image
+                    alt={person.name}
+                    src={person.image}
+                    maxWidth="150px"
+                    maxHeight="150px"
+                    borderRadius="md"
+                  />
+                  <Box width="100%" alignSelf="center" textAlign="right">
+                    <Heading>{person.name}</Heading>
+                    <Text as="i" color="grey">
+                      {person.description}
+                    </Text>
+                  </Box>
+                </Flex>
               </Flex>
-            </Flex>
-          ))}
+            ))}
           </Grid>
         </Box>
       </Box>
@@ -48,6 +55,6 @@ export async function getServerSideProps() {
   return {
     props: {
       staff: staff,
-  }
-}
+    },
+  };
 }
