@@ -6,6 +6,7 @@ import {
   Flex,
   Heading,
   Image,
+  Button,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -46,16 +47,17 @@ export default function Post({ post }) {
                   cursor="pointer"
                   maxHeight="480px"
                   alt={post.title}
-                  onClick={() => router.push(`/animes/${post.anime}`)}
+                  onClick={() => router.push(`/${post.type}s/${post.anime}`)}
                 />
               </Flex>
             </Center>
             {/* Image Box End */}
-            <Center>
+            <Center flexDirection="column">
               <Divider size="3px" width="40%" />
+              <Text as="i" color="gray" mb="1%" mt="1%">{post.author} - {post.date}</Text>
             </Center>
             {/* Text Box Start */}
-            <Box flex="1" pt="1%" pb="2%">
+            <Box flex="1" pb="2%">
               <VStack spacing="2%">
                 <Heading>{post.title}</Heading>
                 <Text pr="4%" fontSize="lg" pl="4%">
@@ -63,6 +65,11 @@ export default function Post({ post }) {
                 </Text>
               </VStack>
             </Box>
+            <Center>
+            <Button colorScheme="blue" onClick={() => router.push(`/${post.type}s/${post.anime}`)}>
+              Página do Anime
+            </Button>
+            </Center>
           </Flex>
         </Box>
         {/* Text Box End */}
