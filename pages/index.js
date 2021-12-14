@@ -11,10 +11,18 @@ import {
 import { useRouter } from "next/router";
 import NavBar from "../components/NavBar";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { useState } from "react";
 import { getPosts, getStatus } from "../lib/Firebase";
 
 export default function Home({ posts, status }) {
   const router = useRouter();
+  const postList = posts;
+  const postLength = postList.length;
+  const [actualPosts, setActualPosts] = useState(postList.slice(0, 4));
+
+  const handleMorePosts = () => {
+    setActualPosts(postList.slice(0, actualPosts.length + 4));
+  }
 
   return (
     <Flex flexDirection="column">
@@ -23,7 +31,7 @@ export default function Home({ posts, status }) {
         {/* Post Box Start */}
         <Flex flex="4" ml="5%">
           <Flex flexDirection="column" width="100%">
-            {posts.map((post, index) => (
+            {actualPosts.map((post, index) => (
               <Flex
                 key={index}
                 p="4%"
@@ -79,7 +87,7 @@ export default function Home({ posts, status }) {
                     <Button
                       rightIcon={<ArrowForwardIcon />}
                       colorScheme="blue"
-                      onClick={() => router.push(`/animes/${post.anime}`)}
+                      onClick={() => router.push(`/${post.type}s/${post.anime}`)}
                     >
                       Página do Anime
                     </Button>
@@ -91,8 +99,8 @@ export default function Home({ posts, status }) {
         </Flex>
         {/* Post Box End */}
         {/* Sidebar Start */}
-        <Flex flex="1" justifyContent="end" pl="5%" pr="5%">
-          <Center flexDirection="column" justifyContent="start" width="100%">
+        <Flex flex="1" pl="5%" pr="5%" flexDirection="column" justifyContent="space-between">
+          <Center alignSelf="start" width="100%">
             {/* Project Status Start */}
             <Box
               boxShadow="lg"
@@ -116,6 +124,12 @@ export default function Home({ posts, status }) {
             </Box>
             {/* Project Status End */}
           </Center>
+          {
+            postLength != actualPosts.length &&
+            <Button mb="7%" onClick={handleMorePosts}>
+              Posts anteriores
+            </Button>
+          }
         </Flex>
         {/* Sidebar End */}
       </Flex>
