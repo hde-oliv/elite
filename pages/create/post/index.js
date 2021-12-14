@@ -13,16 +13,26 @@ import {
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import { convertToSlug } from "../../../lib/Utils";
-import { setPost } from "../../../lib/Firebase";
+import {
+  setPost,
+  getStaff,
+  getAnimes,
+  getFilms,
+  getSpecials,
+} from "../../../lib/Firebase";
 
-export default function CreatePostPage() {
+export default function CreatePostPage({ staff, titles }) {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [text, setText] = useState("");
   const [anime, setAnime] = useState("");
   const [author, setAuthor] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
+  const router = useRouter();
 
   const handleTitleChange = (event) => setTitle(event.target.value);
   const handleImageChange = (event) => setImage(event.target.value);
@@ -30,6 +40,7 @@ export default function CreatePostPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsLoading(true);
     if (
       title === "" ||
       image === "" ||
@@ -42,6 +53,7 @@ export default function CreatePostPage() {
         status: "error",
         isClosable: true,
       });
+      setIsLoading(false);
       return;
     }
     const slug = convertToSlug(title);
@@ -55,6 +67,7 @@ export default function CreatePostPage() {
     };
     console.log(post);
     setPost(post).then((res) => {
+      setIsLoading(false);
       if (res) {
         toast({
           title: `Post created`,
@@ -112,7 +125,11 @@ export default function CreatePostPage() {
                 setAuthor(target[target.options.selectedIndex].value);
               }}
             >
-              <option value="rike">rike</option>
+              {staff.map((staff, index) => (
+                <option key={index} value={staff.name}>
+                  {staff.name}
+                </option>
+              ))}
             </Select>
           </FormControl>
           <FormControl id="anime" isRequired>
@@ -124,7 +141,25 @@ export default function CreatePostPage() {
                 setAnime(target[target.options.selectedIndex].value);
               }}
             >
-              <option value="to-love-ru">To Love-Ru</option>
+              {titles.map((title, index) => (
+                <option key={index} value={title}>
+                  {title}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl id="type" isRequired>
+            <FormLabel>Type</FormLabel>
+            <Select
+              placeholder="Select type"
+              onChange={(event) => {
+                const { target } = event;
+                setAnime(target[target.options.selectedIndex].value);
+              }}
+            >
+              <option value="anime">Anime</option>
+              <option value="film">Film</option>
+              <option value="special">Special</option>
             </Select>
           </FormControl>
           <FormControl id="text" isRequired>
@@ -132,12 +167,33 @@ export default function CreatePostPage() {
             <Textarea value={text} onChange={handleTextChange} />
           </FormControl>
           <Center>
-            <Button colorScheme="red" onClick={handleSubmit}>
+            <Button isLoading={isLoading} colorScheme="red" onClick={handleSubmit}>
               Submit
             </Button>
           </Center>
         </VStack>
+        <Center>
+          <Button mt="2%" onClick={() => router.push("/")} leftIcon={<ArrowBackIcon />}>
+            Home
+          </Button>
+        </Center>
       </Box>
     </Flex>
   );
+}
+
+export async function getServerSideProps() {
+  const staff = await getStaff();
+  const animes = await getAnimes();
+  const films = await getFilms();
+  const specials = await getSpecials();
+
+  const titleList = animes
+    .map((anime) => anime.slug)
+    .concat(films.map((film) => film.slug))
+    .concat(specials.map((special) => special.slug));
+
+  return {
+    props: { staff: staff, titles: titleList },
+  };
 }
