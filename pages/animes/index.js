@@ -19,7 +19,7 @@ export default function Animes({ animeList }) {
         borderColor="gray.100"
       >
         <Box>
-          <Grid templateColumns="repeat(3, 1fr)" columnGap="5%" rowGap="2%">
+          <Grid templateColumns="repeat(2, 1fr)" columnGap="5%" rowGap="2%">
             {animeList.map((anime, index) => (
               <Flex
                 key={index}
@@ -63,8 +63,11 @@ export default function Animes({ animeList }) {
 }
 
 export async function getServerSideProps() {
-  const animesData = await getAnimes();
+  let animesData = await getAnimes();
 
+  for (let i = 0; i < 30; i++) {
+    animesData.push(animesData[0]);
+  }
   return {
     props: { animeList: animesData },
   };
