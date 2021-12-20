@@ -10,13 +10,16 @@ import {
   Icon,
   Heading,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 import MenuDrawer from "./MenuDrawer";
 import { SiDiscord, SiFacebook, SiGithub } from "react-icons/si";
 import { useRouter } from "next/router";
+import SearchModal from "./SearchModal";
 
 export default function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();
+  const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
   const info = {
     name: "elite fansub",
@@ -25,21 +28,28 @@ export default function NavBar() {
     github: "https://github.com/hde-oliv/elite",
   };
 
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <Box pl="5%" pr="5%" pt="1.5%" pb="1.5%">
       <Flex p="0%">
         <Flex flex="1" justifyContent="start" mr="auto">
-          <Heading onClick={() => router.push("/")} cursor="pointer">
+          <Heading onClick={() => router.push("/")} userSelect="none" cursor="pointer">
             {info.name}
           </Heading>
         </Flex>
         <Flex flex="3" justifyContent="center" alignSelf="center">
-          <InputGroup>
-            <Input placeholder="Pesquisar" />
+          {/* <InputGroup>
+            <Input placeholder="Pesquisar" value={searchTerm} onChange={handleChange} />
             <InputRightElement>
-              <IconButton type="submit" size="md" icon={<SearchIcon />} />
             </InputRightElement>
-          </InputGroup>
+          </InputGroup> */}
         </Flex>
         <Flex flex="1" justifyContent="end" ml="auto">
           <Button onClick={() => toggleColorMode()} mr="2%">

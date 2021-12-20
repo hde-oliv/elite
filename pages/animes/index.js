@@ -63,11 +63,8 @@ export default function Animes({ animeList }) {
 }
 
 export async function getServerSideProps() {
-  let animesData = await getAnimes();
+  const animesData = await getAnimes();
 
-  for (let i = 0; i < 30; i++) {
-    animesData.push(animesData[0]);
-  }
   return {
     props: { animeList: animesData },
   };
