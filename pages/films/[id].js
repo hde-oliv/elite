@@ -73,7 +73,7 @@ export default function FilmPage({ film }) {
                 <Box>
                   {film.torrents.length > 0 ? (
                     <Flex flexDirection="row">
-                      {film.torrents.map((torrent, index) => (
+                      {film.torrents.filter((torrent) => torrent !== "").map((torrent, index) => (
                         <Button
                           key={index}
                           onClick={() => window.open(torrent, "_blank")}

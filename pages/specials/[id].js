@@ -73,7 +73,7 @@ export default function SpecialPage({ special }) {
                 <Box>
                   {special.torrents.length > 0 ? (
                     <Flex flexDirection="row">
-                      {special.torrents.map((torrent, index) => (
+                      {special.torrents.filter((torrent) => torrent !== "").map((torrent, index) => (
                         <Button
                           key={index}
                           onClick={() => window.open(torrent, "_blank")}
