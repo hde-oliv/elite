@@ -4,7 +4,7 @@ import theme from "../lib/Theme";
 import { UserContext } from "../lib/UserContext";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, setUserInfo } from "../lib/firebase";
+import { auth, setUserInfo } from "../lib/Firebase";
 
 function MyApp({ Component, pageProps }) {
   const [user] = useAuthState(auth);
