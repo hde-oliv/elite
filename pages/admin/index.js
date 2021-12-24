@@ -1,26 +1,14 @@
-import { Button, Text, Box, Flex } from "@chakra-ui/react";
+import { Button, Text, Box, Flex, Center } from "@chakra-ui/react";
 import { UserContext } from "../../lib/UserContext";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Skeleton } from "@chakra-ui/react";
-import {
-  loginWithGoogle,
-  logoutFromGoogle,
-} from "../../lib/Firebase";
+import { loginWithGoogle, logoutFromGoogle } from "../../lib/Firebase";
 import NavBar from "../../components/NavBar";
 
 export default function AdminsPage() {
-  const { user, staff } = useContext(UserContext);
+  const { user, isAdmin } = useContext(UserContext);
 
-  return (
-    <>
-      {user && staff ? (
-        <LoggedInPage />
-      ) : (
-        <LoggedOutPage />
-      )}
-    </>
-  );
+  return <>{user && isAdmin ? <LoggedInPage /> : <LoggedOutPage />}</>;
 }
 
 function LoggedOutPage() {
@@ -36,7 +24,7 @@ function LoggedOutPage() {
       <NavBar pd="auto" justifyContent="start" />
       <Box
         p="5%"
-        pt="2%"
+        pt="1%"
         pb="auto"
         justifyContent="end"
         border="px"
@@ -44,13 +32,9 @@ function LoggedOutPage() {
       >
         <Box>
           <Flex boxShadow="lg" p="6" rounded="md" borderRadius="md">
-            {loading ? (
-              <Skeleton>
-                <Button>Login</Button>
-              </Skeleton>
-            ) : (
-              <Button onClick={handleLogin}>Login</Button>
-            )}
+            <Button isLoading={loading} onClick={handleLogin}>
+              Login
+            </Button>
           </Flex>
         </Box>
       </Box>
@@ -60,13 +44,14 @@ function LoggedOutPage() {
 
 function LoggedInPage() {
   const router = useRouter();
+  const { user, staff } = useContext(UserContext);
 
   return (
     <Flex flexDirection="column" height="100vh">
       <NavBar pd="auto" justifyContent="start" />
       <Box
         p="5%"
-        pt="2%"
+        pt="1%"
         pb="auto"
         justifyContent="end"
         border="px"
@@ -74,10 +59,26 @@ function LoggedInPage() {
       >
         <Box>
           <Flex boxShadow="lg" p="6" rounded="md" borderRadius="md">
-            <Button onClick={() => router.push("/admin/post")}>
-              Create Post
-            </Button>
-            <Button onClick={logoutFromGoogle}>Logout</Button>
+            <Flex mr="auto" justifyContent="start" flex="1">
+              <Button mr="5%" width="100%" onClick={() => router.push("/admin/post/create")}>
+                Create Post
+              </Button>
+              <Button mr="5%" width="100%" onClick={() => router.push("/admin/post/edit")}>
+                Edit Post
+              </Button>
+              <Button mr="5%" width="100%" onClick={() => router.push("/admin/anime/create")}>
+                Create Anime
+              </Button>
+              <Button mr="5%" width="100%" onClick={() => router.push("/admin/anime/edit")}>
+                Edit Anime
+              </Button>
+              <Button width="100%" onClick={logoutFromGoogle}>Logout</Button>
+            </Flex>
+            <Flex ml="auto" justifyContent="end" flex="1">
+              <Center flexDirection="column">
+                <Text mb="5%"> Logged as: {user.email}</Text>
+              </Center>
+            </Flex>
           </Flex>
         </Box>
       </Box>

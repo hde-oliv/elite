@@ -27,7 +27,7 @@ export default function Home({ posts, status }) {
   return (
     <Flex flexDirection="column">
       <NavBar pd="auto" />
-      <Flex pt="2%">
+      <Flex pt="1%">
         {/* Post Box Start */}
         <Flex flex="4" ml="5%">
           <Flex flexDirection="column" width="100%">

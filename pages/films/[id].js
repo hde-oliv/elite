@@ -18,7 +18,7 @@ export default function FilmPage({ film }) {
       <NavBar pd="auto" justifyContent="start" />
       <Box
         p="5%"
-        pt="2%"
+        pt="1%"
         pb="auto"
         justifyContent="end"
         border="px"

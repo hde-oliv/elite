@@ -5,26 +5,26 @@ import { UserContext } from "../lib/UserContext";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, isAdmin, logoutFromGoogle } from "../lib/Firebase";
+import { auth, checkAdmin, logoutFromGoogle } from "../lib/Firebase";
 
 function MyApp({ Component, pageProps }) {
   const [user] = useAuthState(auth);
-  const [staff, setStaff] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
     if (user != null) {
-      isAdmin(user).then((res) => {
+      checkAdmin(user).then((res) => {
         if (!res) {
           logoutFromGoogle();
-          setStaff(null);
+          setIsAdmin(null);
           router.push("/");
         } else {
-          setStaff(true);
+          setIsAdmin(true);
         }
       });
     }
-    setStaff(null);
+    setIsAdmin(null);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <ChakraProvider>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        <UserContext.Provider value={{ user, staff }}>
+        <UserContext.Provider value={{ user, isAdmin }}>
           <Component {...pageProps} />
         </UserContext.Provider>
       </ChakraProvider>
