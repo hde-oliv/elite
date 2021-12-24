@@ -1,16 +1,20 @@
 import { Button, Text, Box, Flex } from "@chakra-ui/react";
 import { UserContext } from "../../lib/UserContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { loginWithGoogle, logoutFromGoogle, setUser } from "../../lib/firebase";
+import { Skeleton } from "@chakra-ui/react";
+import {
+  loginWithGoogle,
+  logoutFromGoogle,
+} from "../../lib/Firebase";
 import NavBar from "../../components/NavBar";
 
-export default function CreateStuffPage() {
-  const { user } = useContext(UserContext);
+export default function AdminsPage() {
+  const { user, staff } = useContext(UserContext);
 
   return (
     <>
-      {user ? (
+      {user && staff ? (
         <LoggedInPage />
       ) : (
         <LoggedOutPage />
@@ -20,7 +24,12 @@ export default function CreateStuffPage() {
 }
 
 function LoggedOutPage() {
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = () => {
+    setLoading(true);
+    loginWithGoogle();
+  };
 
   return (
     <Flex flexDirection="column" height="100vh">
@@ -35,7 +44,13 @@ function LoggedOutPage() {
       >
         <Box>
           <Flex boxShadow="lg" p="6" rounded="md" borderRadius="md">
-            <Button onClick={loginWithGoogle}>Login</Button>
+            {loading ? (
+              <Skeleton>
+                <Button>Login</Button>
+              </Skeleton>
+            ) : (
+              <Button onClick={handleLogin}>Login</Button>
+            )}
           </Flex>
         </Box>
       </Box>
@@ -59,9 +74,11 @@ function LoggedInPage() {
       >
         <Box>
           <Flex boxShadow="lg" p="6" rounded="md" borderRadius="md">
-            <Button onClick={() => router.push("/admin/post")}>Create Post</Button>
+            <Button onClick={() => router.push("/admin/post")}>
+              Create Post
+            </Button>
             <Button onClick={logoutFromGoogle}>Logout</Button>
-            </Flex>
+          </Flex>
         </Box>
       </Box>
     </Flex>
