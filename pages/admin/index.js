@@ -2,7 +2,7 @@ import { Button, Text, Box, Flex } from "@chakra-ui/react";
 import { UserContext } from "../../lib/UserContext";
 import { useContext } from "react";
 import { useRouter } from "next/router";
-import { loginWithGoogle, logoutFromGoogle, setUser } from "../../lib/firebase";
+import { loginWithGoogle, logoutFromGoogle, setUser } from "../../lib/Firebase";
 import NavBar from "../../components/NavBar";
 
 export default function CreateStuffPage() {
