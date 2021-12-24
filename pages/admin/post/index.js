@@ -12,7 +12,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { convertToSlug } from "../../../lib/Utils";
@@ -23,8 +23,10 @@ import {
   getFilms,
   getSpecials,
 } from "../../../lib/Firebase";
+import { UserContext } from "../../../lib/UserContext";
 
 export default function CreatePostPage({ staff, titles }) {
+  const { user } = useContext(UserContext);
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [text, setText] = useState("");
@@ -86,7 +88,21 @@ export default function CreatePostPage({ staff, titles }) {
       }
     });
   };
+
+  const userIsAdmin = (user) => {
+    if (!user) return false;
+
+    const staffUIDs = staff.map((staff) => staff.uid);
+    const userStaffIndex = staffUIDs.indexOf(user.uid);
+    if (userStaffIndex === -1) return false;
+
+    const userStaff = staff[userStaffIndex];
+    return userStaff.admin;
+  }
+
   return (
+  <>
+    { !userIsAdmin(user) ? (<></>) : (
     <Flex flexDirection="column" height="100vh">
       <Center pt="2%">
         <Heading>Create Post</Heading>
@@ -167,18 +183,35 @@ export default function CreatePostPage({ staff, titles }) {
             <Textarea value={text} onChange={handleTextChange} />
           </FormControl>
           <Center>
-            <Button isLoading={isLoading} colorScheme="red" onClick={handleSubmit}>
+            <Button
+              isLoading={isLoading}
+              colorScheme="red"
+              onClick={handleSubmit}
+            >
               Submit
             </Button>
           </Center>
         </VStack>
         <Center>
-          <Button mt="2%" onClick={() => router.push("/")} leftIcon={<ArrowBackIcon />}>
+          <Button
+            mt="2%"
+            mr="1%"
+            onClick={() => router.push("/")}
+            leftIcon={<ArrowBackIcon />}
+          >
             Home
+          </Button>
+          <Button
+            mt="2%"
+            onClick={() => router.push("/admin")}
+            leftIcon={<ArrowBackIcon />}
+          >
+            Admin
           </Button>
         </Center>
       </Box>
-    </Flex>
+    </Flex>) }
+  </>
   );
 }
 

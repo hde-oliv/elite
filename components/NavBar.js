@@ -15,7 +15,6 @@ import { MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 import MenuDrawer from "./MenuDrawer";
 import { SiDiscord, SiFacebook, SiGithub } from "react-icons/si";
 import { useRouter } from "next/router";
-import SearchModal from "./SearchModal";
 
 export default function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();

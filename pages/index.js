@@ -60,21 +60,22 @@ export default function Home({ posts, status }) {
                   maxWidth="100%"
                   maxHeight="100%"
                   width="100%"
+                  overflow="auto"
                 >
                   <Heading textAlign="start" mb="4%">
                     {post.title}
                   </Heading>
-                  <Text
-                    noOfLines={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
-                    maxHeight="100%"
-                    height="100%"
-                  >
-                    {post.text}
-                  </Text>
+                  <Box maxHeight="100%" height="100%">
+                    <Text fontSize="lg" noOfLines={[1, 2, 3]} maxHeight="100%">
+                      {post.preview_text}
+                    </Text>
+                  </Box>
                   <Flex
                     justifyContent="end"
                     justifySelf="end"
                     mt="3%"
+                    pb="1%"
+                    pr="1%"
                     width="100%"
                   >
                     <Button
@@ -87,7 +88,9 @@ export default function Home({ posts, status }) {
                     <Button
                       rightIcon={<ArrowForwardIcon />}
                       colorScheme="blue"
-                      onClick={() => router.push(`/${post.type}s/${post.anime}`)}
+                      onClick={() =>
+                        router.push(`/${post.type}s/${post.anime}`)
+                      }
                     >
                       Página do Anime
                     </Button>
@@ -99,7 +102,13 @@ export default function Home({ posts, status }) {
         </Flex>
         {/* Post Box End */}
         {/* Sidebar Start */}
-        <Flex flex="1" pl="5%" pr="5%" flexDirection="column" justifyContent="space-between">
+        <Flex
+          flex="1"
+          pl="5%"
+          pr="5%"
+          flexDirection="column"
+          justifyContent="space-between"
+        >
           <Center alignSelf="start" width="100%">
             {/* Project Status Start */}
             <Box
@@ -124,12 +133,11 @@ export default function Home({ posts, status }) {
             </Box>
             {/* Project Status End */}
           </Center>
-          {
-            postLength != actualPosts.length &&
+          {postLength != actualPosts.length && (
             <Button mb="7%" onClick={handleMorePosts}>
               Posts anteriores
             </Button>
-          }
+          )}
         </Flex>
         {/* Sidebar End */}
       </Flex>

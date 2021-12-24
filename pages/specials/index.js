@@ -26,7 +26,7 @@ export default function Specials({ specialList }) {
         borderColor="gray.100"
       >
         <Box>
-          <Grid templateColumns="repeat(3, 1fr)" columnGap="5%" rowGap="2%">
+          <Grid templateColumns="repeat(2, 1fr)" columnGap="5%" rowGap="2%">
             {specialList.map((special, index) => (
               <Flex
                 key={index}
