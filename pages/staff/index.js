@@ -2,7 +2,7 @@ import { Flex, Text, Box, Image, Grid, Heading } from "@chakra-ui/react";
 import NavBar from "../../components/NavBar";
 import { getStaff } from "../../lib/Firebase";
 
-export default function Staff({ staff }) {
+export default function StaffPage({ staff }) {
   return (
     <Flex flexDirection="column" height="100vh">
       <NavBar pd="auto" justifyContent="start" />

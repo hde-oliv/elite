@@ -21,7 +21,7 @@ import { setAnime } from "../../../lib/Firebase";
 import { UserContext } from "../../../lib/UserContext";
 import NavBar from "../../../components/NavBar";
 
-export default function CreatePostPage() {
+export default function AnimeCreatePage() {
   const { user, isAdmin } = useContext(UserContext);
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");

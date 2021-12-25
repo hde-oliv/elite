@@ -19,7 +19,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 import { MDXComponents } from "../../components/MDXComponents";
 
-export default function Post({ post }) {
+export default function PostPage({ post }) {
   const router = useRouter();
 
   return (

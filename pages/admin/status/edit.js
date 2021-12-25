@@ -43,7 +43,7 @@ import {
 import { UserContext } from "../../../lib/UserContext";
 import NavBar from "../../../components/NavBar";
 
-export default function EditAStatus({ animes, titles, statuses }) {
+export default function StatusEditPage({ animes, titles, statuses }) {
   const { user, isAdmin } = useContext(UserContext);
   const [status, setStatus] = useState(null);
   const [toFetch, setToFetch] = useState(false);

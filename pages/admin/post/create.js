@@ -27,7 +27,7 @@ import {
 import { UserContext } from "../../../lib/UserContext";
 import NavBar from "../../../components/NavBar";
 
-export default function CreatePostPage({ staff, titles }) {
+export default function PostCreatePage({ staff, titles }) {
   const { user, isAdmin } = useContext(UserContext);
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");

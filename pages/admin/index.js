@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { loginWithGoogle, logoutFromGoogle } from "../../lib/Firebase";
 import NavBar from "../../components/NavBar";
 
-export default function AdminsPage() {
+export default function AdminPage() {
   const { user, isAdmin } = useContext(UserContext);
 
   return <>{user && isAdmin ? <LoggedInPage /> : <LoggedOutPage />}</>;

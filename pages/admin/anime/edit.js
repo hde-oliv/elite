@@ -36,7 +36,7 @@ import { UserContext } from "../../../lib/UserContext";
 import { convertToSlug } from "../../../lib/Utils";
 import { useRouter } from "next/router";
 
-export default function EditAnimePage({ animes, films, specials }) {
+export default function AnimeEditPage({ animes, films, specials }) {
   const { user, isAdmin } = useContext(UserContext);
   const [anime, setAnime] = useState(null);
   const [toFetch, setToFetch] = useState(false);

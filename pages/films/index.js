@@ -4,7 +4,7 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { getFilms } from "../../lib/Firebase";
 import { useRouter } from "next/router";
 
-export default function Films({ filmList }) {
+export default function FilmsPage({ filmList }) {
   const router = useRouter();
 
   return (

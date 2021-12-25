@@ -28,7 +28,7 @@ import {
 import { UserContext } from "../../../lib/UserContext";
 import NavBar from "../../../components/NavBar";
 
-export default function CreatePostPage({ animes, titles }) {
+export default function StatusCreatePage({ animes, titles }) {
   const { user, isAdmin } = useContext(UserContext);
   const [status, setStatus] = useState("");
   const [nextNumber, setNextNumber] = useState("");

@@ -4,7 +4,7 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { getSpecials } from "../../lib/Firebase";
 import { useRouter } from "next/router";
 
-export default function Specials({ specialList }) {
+export default function SpecialsPage({ specialList }) {
   const router = useRouter();
 
   return (

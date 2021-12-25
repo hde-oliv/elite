@@ -38,7 +38,7 @@ import {
 import { UserContext } from "../../../lib/UserContext";
 import NavBar from "../../../components/NavBar";
 
-export default function EditPostPage({ staff, titles, posts }) {
+export default function PostEditPage({ staff, titles, posts }) {
   const { user, isAdmin } = useContext(UserContext);
   const [post, setPost] = useState(null);
   const [toFetch, setToFetch] = useState(false);
