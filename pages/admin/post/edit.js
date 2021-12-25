@@ -178,7 +178,7 @@ function SelectedPostInfo({ postInfo, staff, titles }) {
       setIsLoading(false);
       if (res) {
         toast({
-          title: `Post created`,
+          title: `Post updated`,
           status: "success",
           isClosable: true,
         });
