@@ -13,6 +13,11 @@ import {
 import NavBar from "../../components/NavBar";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
+import { serialize } from "next-mdx-remote/serialize";
+import { MDXRemote } from "next-mdx-remote";
+import { MDXComponents } from "../../components/MDXComponents";
 
 export default function Post({ post }) {
   const router = useRouter();
@@ -60,9 +65,12 @@ export default function Post({ post }) {
             <Box flex="1" pb="2%">
               <VStack spacing="2%">
                 <Heading>{post.title}</Heading>
-                <Text pr="4%" fontSize="lg" pl="4%">
+                {/* <Text >
                   {post.text}
-                </Text>
+                </Text> */}
+                <Box pr="4%" fontSize="lg" pl="4%" >
+                   <MDXRemote {...post.text} components={MDXComponents} />
+                </Box>
               </VStack>
             </Box>
             <Center>
@@ -80,8 +88,13 @@ export default function Post({ post }) {
 
 export async function getServerSideProps({ params }) {
   const postData = await getPost(params.id);
+  const mdxSource = await serialize(postData.text, {
+    mdxOptions: {
+      remarkPlugins: [remarkBreaks, remarkGfm],
+    },
+  });
 
   return {
-    props: { post: postData },
+    props: { post: {...postData, text: mdxSource} },
   };
 }
