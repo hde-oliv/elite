@@ -9,6 +9,14 @@ import {
   FormControl,
   FormLabel,
   useToast,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  useDisclosure,
+  ModalCloseButton,
   VStack,
   Textarea,
   Button,
@@ -20,14 +28,15 @@ import {
   getAnimes,
   getFilms,
   getSpecials,
-  updateAnime
+  updateAnime,
+  deleteAnime
 } from "../../../lib/Firebase";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../../lib/UserContext";
 import { convertToSlug } from "../../../lib/Utils";
 import { useRouter } from "next/router";
 
-export default function EditAnimePage({ titles, animes, films, specials }) {
+export default function EditAnimePage({ animes, films, specials }) {
   const { user, isAdmin } = useContext(UserContext);
   const [anime, setAnime] = useState(null);
   const [toFetch, setToFetch] = useState(false);
@@ -68,7 +77,6 @@ export default function EditAnimePage({ titles, animes, films, specials }) {
                           const { target } = event;
                           setAnime(target.value);
                           setToFetch(false);
-                          console.log({ anime });
                         }}
                       >
                         {animes.map((anime, index) => (
@@ -76,27 +84,37 @@ export default function EditAnimePage({ titles, animes, films, specials }) {
                             {anime.title}
                           </option>
                         ))}
-                         {films.map((film, index) => (
+                        {films.map((film, index) => (
                           <option key={index} value={film.slug}>
                             {film.title}
                           </option>
                         ))}
-                         {specials.map((special, index) => (
+                        {specials.map((special, index) => (
                           <option key={index} value={special.slug}>
                             {special.title}
                           </option>
                         ))}
                       </Select>
                       <Center>
-                        <Button
-                          mt="1%"
-                          onClick={() => {
-                            setToFetch(true);
-                          }}
-                          colorScheme="red"
-                        >
-                          Fetch
-                        </Button>
+                        {anime && (
+                          <>
+                            <DeleteModal
+                              anime={animes
+                                .concat(films)
+                                .concat(specials)
+                                .find((a) => a.slug === anime)}
+                            />
+                            <Button
+                              mt="1%"
+                              onClick={() => {
+                                setToFetch(true);
+                              }}
+                              colorScheme="blue"
+                            >
+                              Edit
+                            </Button>
+                          </>
+                        )}
                       </Center>
                       <Divider size="2px" mt="2%" mb="1%" />
                       {anime && toFetch && (
@@ -104,7 +122,10 @@ export default function EditAnimePage({ titles, animes, films, specials }) {
                           animes={animes}
                           films={films}
                           specials={specials}
-                          animeInfo={animes.concat(films).concat(specials).find((a) => a.slug === anime)}
+                          animeInfo={animes
+                            .concat(films)
+                            .concat(specials)
+                            .find((a) => a.slug === anime)}
                         />
                       )}
                     </FormControl>
@@ -121,7 +142,7 @@ export default function EditAnimePage({ titles, animes, films, specials }) {
   );
 }
 
-function SelectedAnimeInfo({ animes, films, specials, animeInfo }) {
+function SelectedAnimeInfo({ animeInfo }) {
   const [title, setTitle] = useState(animeInfo.title);
   const [image, setImage] = useState(animeInfo.image);
   const [description, setDescription] = useState(animeInfo.description);
@@ -165,9 +186,15 @@ function SelectedAnimeInfo({ animes, films, specials, animeInfo }) {
       setIsLoading(false);
       return;
     }
-    if (torrentOne === undefined) { setTorrentOne(""); }
-    if (torrentTwo === undefined) { setTorrentTwo(""); }
-    if (torrentThree === undefined) { setTorrentThree(""); }
+    if (torrentOne === undefined) {
+      setTorrentOne("");
+    }
+    if (torrentTwo === undefined) {
+      setTorrentTwo("");
+    }
+    if (torrentThree === undefined) {
+      setTorrentThree("");
+    }
 
     const slug = convertToSlug(title);
     const anime = {
@@ -180,7 +207,7 @@ function SelectedAnimeInfo({ animes, films, specials, animeInfo }) {
       torrents: [torrentOne, torrentTwo, torrentThree],
       title,
     };
-    console.log({anime, animeInfo});
+    console.log({ anime, animeInfo });
     updateAnime(anime, animeInfo).then((res) => {
       setIsLoading(false);
       if (res) {
@@ -297,17 +324,60 @@ function SelectedAnimeInfo({ animes, films, specials, animeInfo }) {
   );
 }
 
+function DeleteModal({ anime }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
+
+  const handleDelete = async () => {
+    const res = await deleteAnime(anime);
+    if (!res) {
+      onClose();
+      toast({
+        title: `Error`,
+        status: "error",
+        isClosable: true,
+      });
+      return;
+    }
+    onClose();
+    router.reload();
+  }
+
+  return (
+    <>
+      <Button mt="1%" mr="5%" onClick={onOpen} colorScheme="red">
+        Delete
+      </Button>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Delete {anime.title}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>Are you sure of that?</Text>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" variant="ghost" mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme="red" onClick={handleDelete}>Delete</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}
+
 export async function getServerSideProps() {
   const animes = await getAnimes();
   const films = await getFilms();
   const specials = await getSpecials();
 
-  const titleList = animes
-    .map((anime) => anime.slug)
-    .concat(films.map((film) => film.slug))
-    .concat(specials.map((special) => special.slug));
-
   return {
-    props: { animes: animes, titles: titleList, films: films, specials: specials },
+    props: {
+      animes: animes,
+      films: films,
+      specials: specials,
+    },
   };
 }

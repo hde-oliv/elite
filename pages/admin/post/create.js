@@ -214,7 +214,7 @@ export default function CreatePostPage({ staff, titles }) {
                         </Button>
                         <Button
                           isLoading={isLoading}
-                          colorScheme="green"
+                          colorScheme="blue"
                           onClick={handleSubmit}
                         >
                           Submit

@@ -7,7 +7,15 @@ import {
   Input,
   Flex,
   Box,
+  useDisclosure,
   Heading,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
   Text,
   Select,
   Button,
@@ -24,6 +32,7 @@ import {
   getAnimes,
   getFilms,
   getSpecials,
+  deletePost,
   getPosts,
 } from "../../../lib/Firebase";
 import { UserContext } from "../../../lib/UserContext";
@@ -33,7 +42,6 @@ export default function EditPostPage({ staff, titles, posts }) {
   const { user, isAdmin } = useContext(UserContext);
   const [post, setPost] = useState(null);
   const [toFetch, setToFetch] = useState(false);
-
 
   return (
     <>
@@ -59,34 +67,52 @@ export default function EditPostPage({ staff, titles, posts }) {
                     pb="2%"
                     pt="2%"
                     justifyContent="end"
-                    border="px" mt="2%"
+                    border="px"
+                    mt="2%"
                     borderColor="gray.100"
                   >
-                      <FormControl id="title" isRequired >
-                        <FormLabel>Post</FormLabel>
-                        <Select
-                          placeholder="Select post"
-                          onChange={(event) => {
-                            const { target } = event;
-                            setPost(target.value);
-                            setToFetch(false);
-                            console.log({post})
-                          }}
-                        >
-                          {posts.map((post, index) => (
-                            <option key={index} value={post.slug}>
-                              {post.title}
-                            </option>
-                          ))}
-                        </Select>
-                        <Center>
-                        <Button mt="1%" onClick={() => {setToFetch(true)}} colorScheme="red">
-                          Fetch
-                        </Button>
-                        </Center>
-                        <Divider size="2px" mt="2%" mb="1%"/>
-                        {post && toFetch && <SelectedPostInfo staff={staff} titles={titles}  postInfo={posts.find((p) => p.slug === post)}/>}
-                      </FormControl>
+                    <FormControl id="title" isRequired>
+                      <FormLabel>Post</FormLabel>
+                      <Select
+                        placeholder="Select post"
+                        onChange={(event) => {
+                          const { target } = event;
+                          setPost(target.value);
+                          setToFetch(false);
+                          console.log({ post });
+                        }}
+                      >
+                        {posts.map((post, index) => (
+                          <option key={index} value={post.slug}>
+                            {post.title}
+                          </option>
+                        ))}
+                      </Select>
+                      <Center>
+                        {post && (
+                          <>
+                            <DeleteModal post={posts.find((p) => p.slug === post)} />
+                            <Button
+                              mt="1%"
+                              onClick={() => {
+                                setToFetch(true);
+                              }}
+                              colorScheme="blue"
+                            >
+                              Edit
+                            </Button>
+                          </>
+                        )}
+                      </Center>
+                      <Divider size="2px" mt="2%" mb="1%" />
+                      {post && toFetch && (
+                        <SelectedPostInfo
+                          staff={staff}
+                          titles={titles}
+                          postInfo={posts.find((p) => p.slug === post)}
+                        />
+                      )}
+                    </FormControl>
                   </Box>
                 </Flex>
               </Flex>
@@ -194,7 +220,7 @@ function SelectedPostInfo({ postInfo, staff, titles }) {
             if (target.value) {
               setAuthor(target.value);
             } else {
-              setAuthor(postInfo.author)
+              setAuthor(postInfo.author);
             }
           }}
         >
@@ -260,15 +286,57 @@ function SelectedPostInfo({ postInfo, staff, titles }) {
         >
           Cancel
         </Button>
-        <Button
-          colorScheme="green"
-          isLoading={isLoading}
-          onClick={handleSubmit}
-        >
+        <Button colorScheme="blue" isLoading={isLoading} onClick={handleSubmit}>
           Submit
         </Button>
       </Center>
     </VStack>
+  );
+}
+
+function DeleteModal({ post }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
+
+  const handleDelete = async () => {
+    const res = await deletePost(post);
+    if (!res) {
+      onClose();
+      toast({
+        title: `Error`,
+        status: "error",
+        isClosable: true,
+      });
+      return;
+    }
+    onClose();
+    router.reload();
+  };
+
+  return (
+    <>
+      <Button mt="1%" mr="5%" onClick={onOpen} colorScheme="red">
+        Delete
+      </Button>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Delete {post.title}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>Are you sure of that?</Text>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" variant="ghost" mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme="red" onClick={handleDelete}>
+              Delete
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
 
