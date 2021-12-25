@@ -59,18 +59,24 @@ function LoggedInPage() {
       >
         <Box>
           <Flex boxShadow="lg" p="6" rounded="md" borderRadius="md">
-            <Flex mr="auto" justifyContent="start" flex="1">
-              <Button mr="5%" width="100%" onClick={() => router.push("/admin/post/create")}>
+            <Flex mr="auto" justifyContent="start" flex="2">
+              <Button mr="3%" width="100%" onClick={() => router.push("/admin/post/create")}>
                 Create Post
               </Button>
-              <Button mr="5%" width="100%" onClick={() => router.push("/admin/post/edit")}>
+              <Button mr="3%" width="100%" onClick={() => router.push("/admin/post/edit")}>
                 Edit Post
               </Button>
-              <Button mr="5%" width="100%" onClick={() => router.push("/admin/anime/create")}>
+              <Button mr="3%" width="100%" onClick={() => router.push("/admin/anime/create")}>
                 Create Anime
               </Button>
-              <Button mr="5%" width="100%" onClick={() => router.push("/admin/anime/edit")}>
+              <Button mr="3%" width="100%" onClick={() => router.push("/admin/anime/edit")}>
                 Edit Anime
+              </Button>
+              <Button mr="3%" width="100%" onClick={() => router.push("/admin/status/create")}>
+                Create Status
+              </Button>
+              <Button mr="5%" width="100%" onClick={() => router.push("/admin/status/edit")}>
+                Edit Status
               </Button>
               <Button width="100%" onClick={logoutFromGoogle}>Logout</Button>
             </Flex>
