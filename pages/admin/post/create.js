@@ -202,7 +202,11 @@ export default function CreatePostPage({ staff, titles }) {
                       </FormControl>
                       <FormControl id="text" isRequired>
                         <FormLabel>Text</FormLabel>
-                        <Textarea value={text} placeholder="Accepts markdown (use '&NewLine;' followed by a new line to insert a empty line)" onChange={handleTextChange} />
+                        <Textarea
+                          value={text}
+                          placeholder="Accepts markdown (use '&NewLine;' followed by a new line to insert a empty line)"
+                          onChange={handleTextChange}
+                        />
                       </FormControl>
                       <Center>
                         <Button

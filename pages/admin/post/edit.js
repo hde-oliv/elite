@@ -91,7 +91,9 @@ export default function EditPostPage({ staff, titles, posts }) {
                       <Center>
                         {post && (
                           <>
-                            <DeleteModal post={posts.find((p) => p.slug === post)} />
+                            <DeleteModal
+                              post={posts.find((p) => p.slug === post)}
+                            />
                             <Button
                               mt="1%"
                               onClick={() => {

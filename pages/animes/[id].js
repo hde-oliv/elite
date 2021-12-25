@@ -73,15 +73,17 @@ export default function AnimePage({ anime }) {
                 <Box>
                   {anime.torrents.length > 0 ? (
                     <Flex flexDirection="row">
-                      {anime.torrents.filter((torrent) => torrent !== "").map((torrent, index) => (
-                        <Button
-                          key={index}
-                          onClick={() => window.open(torrent, "_blank")}
-                          mr="4%"
-                        >
-                          Torrent
-                        </Button>
-                      ))}
+                      {anime.torrents
+                        .filter((torrent) => torrent !== "")
+                        .map((torrent, index) => (
+                          <Button
+                            key={index}
+                            onClick={() => window.open(torrent, "_blank")}
+                            mr="4%"
+                          >
+                            Torrent
+                          </Button>
+                        ))}
                     </Flex>
                   ) : (
                     <></>

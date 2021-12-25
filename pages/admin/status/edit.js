@@ -98,7 +98,10 @@ export default function EditAStatus({ animes, titles, statuses }) {
                           <>
                             <DeleteModal
                               status={statuses.find((s) => s.slug === status)}
-                              title={animes.find((anime) => anime.slug === status).title}
+                              title={
+                                animes.find((anime) => anime.slug === status)
+                                  .title
+                              }
                             />
                             <Button
                               mt="1%"
@@ -248,7 +251,8 @@ function SelectedStatusInfo({ animes, titles, statusInfo }) {
         <Input
           placeholder="(Do not alter this field to keep the old value)"
           value={nextNumber}
-          onChange={handleNextNumberChange} />
+          onChange={handleNextNumberChange}
+        />
       </FormControl>
       <Center>
         <Button

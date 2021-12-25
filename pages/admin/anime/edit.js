@@ -29,7 +29,7 @@ import {
   getFilms,
   getSpecials,
   updateAnime,
-  deleteAnime
+  deleteAnime,
 } from "../../../lib/Firebase";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../../lib/UserContext";
@@ -341,7 +341,7 @@ function DeleteModal({ anime }) {
     }
     onClose();
     router.reload();
-  }
+  };
 
   return (
     <>
@@ -360,7 +360,9 @@ function DeleteModal({ anime }) {
             <Button colorScheme="blue" variant="ghost" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="red" onClick={handleDelete}>Delete</Button>
+            <Button colorScheme="red" onClick={handleDelete}>
+              Delete
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

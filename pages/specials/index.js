@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  Heading,
-  Image,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, Heading, Image } from "@chakra-ui/react";
 import NavBar from "../../components/NavBar";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { getSpecials } from "../../lib/Firebase";

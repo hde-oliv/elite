@@ -59,7 +59,9 @@ export default function Post({ post }) {
             {/* Image Box End */}
             <Center flexDirection="column">
               <Divider size="3px" width="40%" />
-              <Text as="i" color="gray" mb="1%" mt="1%">{post.author} - {post.date}</Text>
+              <Text as="i" color="gray" mb="1%" mt="1%">
+                {post.author} - {post.date}
+              </Text>
             </Center>
             {/* Text Box Start */}
             <Box flex="1" pb="2%">
@@ -68,15 +70,18 @@ export default function Post({ post }) {
                 {/* <Text >
                   {post.text}
                 </Text> */}
-                <Box pr="4%" fontSize="lg" pl="4%" >
-                   <MDXRemote {...post.text} components={MDXComponents} />
+                <Box pr="4%" fontSize="lg" pl="4%">
+                  <MDXRemote {...post.text} components={MDXComponents} />
                 </Box>
               </VStack>
             </Box>
             <Center>
-            <Button colorScheme="blue" onClick={() => router.push(`/${post.type}s/${post.anime}`)}>
-              Página do Anime
-            </Button>
+              <Button
+                colorScheme="blue"
+                onClick={() => router.push(`/${post.type}s/${post.anime}`)}
+              >
+                Página do Anime
+              </Button>
             </Center>
           </Flex>
         </Box>
@@ -95,6 +100,6 @@ export async function getServerSideProps({ params }) {
   });
 
   return {
-    props: { post: {...postData, text: mdxSource} },
+    props: { post: { ...postData, text: mdxSource } },
   };
 }

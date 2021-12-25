@@ -25,7 +25,7 @@ export default function Home({ posts, status }) {
   const handleMorePosts = async () => {
     const newPosts = await getPaginatedPosts(actualPage);
     if (newPosts.length === 0) {
-      toast ({
+      toast({
         title: "Acabaram os posts",
         description: "Volte mais tarde!",
         status: "warning",
@@ -37,7 +37,7 @@ export default function Home({ posts, status }) {
     }
     setActualPage(actualPage + 1);
     setActualPosts(actualPosts.concat(newPosts));
-  }
+  };
 
   return (
     <Flex flexDirection="column">
@@ -137,9 +137,13 @@ export default function Home({ posts, status }) {
             >
               <Heading size="md">Status dos Projetos</Heading>
               <Divider size="2px" pt="4%" />
-              {status.length === 0 && (<Box pt="6%"><Heading as="i" color="grey"  size="sm">
-                {"Nenhum projeto sendo feito no momento!"}
-              </Heading></Box>)}
+              {status.length === 0 && (
+                <Box pt="6%">
+                  <Heading as="i" color="grey" size="sm">
+                    {"Nenhum projeto sendo feito no momento!"}
+                  </Heading>
+                </Box>
+              )}
               {status.map((status, index) => (
                 <Box key={index} textAlign="left" pl="2%" pt="6%">
                   <Heading size="sm">• {status.title}</Heading>
@@ -151,9 +155,11 @@ export default function Home({ posts, status }) {
             </Box>
             {/* Project Status End */}
           </Center>
-            {isEnabled && <Button mb="7%" onClick={handleMorePosts}>
+          {isEnabled && (
+            <Button mb="7%" onClick={handleMorePosts}>
               Posts anteriores
-            </Button>}
+            </Button>
+          )}
         </Flex>
         {/* Sidebar End */}
       </Flex>

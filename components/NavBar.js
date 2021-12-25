@@ -42,7 +42,11 @@ export default function NavBar() {
     <Box pl="5%" pr="5%" pt="1.5%" pb="1.5%">
       <Flex p="0%">
         <Flex flex="1" justifyContent="start" mr="auto">
-          <Heading onClick={() => router.push("/")} userSelect="none" cursor="pointer">
+          <Heading
+            onClick={() => router.push("/")}
+            userSelect="none"
+            cursor="pointer"
+          >
             {info.name}
           </Heading>
         </Flex>
@@ -55,7 +59,7 @@ export default function NavBar() {
         </Flex>
         <Flex flex="1" justifyContent="end" ml="auto">
           {user && isAdmin && (
-            <Button mr="2%" onClick={() => router.push('/admin')}>
+            <Button mr="2%" onClick={() => router.push("/admin")}>
               Admin
             </Button>
           )}
@@ -78,7 +82,6 @@ export default function NavBar() {
             mr="2%"
           />
           <MenuDrawer />
-
         </Flex>
       </Flex>
     </Box>

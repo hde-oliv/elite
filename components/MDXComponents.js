@@ -1,50 +1,57 @@
-import { Link, ListItem, OrderedList, Text, chakra, UnorderedList } from '@chakra-ui/react'
+import {
+  Link,
+  ListItem,
+  OrderedList,
+  Text,
+  chakra,
+  UnorderedList,
+} from "@chakra-ui/react";
 
-const HeadingH1 = chakra('h1', {
+const HeadingH1 = chakra("h1", {
   baseStyle: {
-    fontFamily: 'heading',
-    fontWeight: 'bold',
-    fontSize: '3xl',
+    fontFamily: "heading",
+    fontWeight: "bold",
+    fontSize: "3xl",
   },
 });
 
-const HeadingH2 = chakra('h2', {
+const HeadingH2 = chakra("h2", {
   baseStyle: {
-    fontFamily: 'heading',
-    fontWeight: 'bold',
-    fontSize: '2xl',
+    fontFamily: "heading",
+    fontWeight: "bold",
+    fontSize: "2xl",
   },
 });
 
-const HeadingH3 = chakra('h3', {
+const HeadingH3 = chakra("h3", {
   baseStyle: {
-    fontFamily: 'heading',
-    fontWeight: 'bold',
-    fontSize: 'xl',
+    fontFamily: "heading",
+    fontWeight: "bold",
+    fontSize: "xl",
   },
 });
 
-const HeadingH4 = chakra('h4', {
+const HeadingH4 = chakra("h4", {
   baseStyle: {
-    fontFamily: 'heading',
-    fontWeight: 'bold',
-    fontSize: 'lg',
+    fontFamily: "heading",
+    fontWeight: "bold",
+    fontSize: "lg",
   },
 });
 
-const HeadingH5 = chakra('h5', {
+const HeadingH5 = chakra("h5", {
   baseStyle: {
-    fontFamily: 'heading',
-    fontWeight: 'bold',
-    fontSize: 'md',
+    fontFamily: "heading",
+    fontWeight: "bold",
+    fontSize: "md",
   },
 });
 
-const HeadingH6 = chakra('h6', {
+const HeadingH6 = chakra("h6", {
   baseStyle: {
-    fontFamily: 'heading',
-    fontWeight: 'bold',
-    fontSize: 'sm',
+    fontFamily: "heading",
+    fontWeight: "bold",
+    fontSize: "sm",
   },
 });
 
@@ -60,4 +67,4 @@ export const MDXComponents = {
   ol: OrderedList,
   li: ListItem,
   a: Link,
-}
+};
