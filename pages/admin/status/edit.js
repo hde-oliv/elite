@@ -32,6 +32,7 @@ import {
   updatePost,
   getStaff,
   getAnimes,
+  deleteStatus,
   getFilms,
   getSpecials,
   updateStatus,
@@ -97,6 +98,7 @@ export default function EditAStatus({ animes, titles, statuses }) {
                           <>
                             <DeleteModal
                               status={statuses.find((s) => s.slug === status)}
+                              title={animes.find((anime) => anime.slug === status).title}
                             />
                             <Button
                               mt="1%"
@@ -265,8 +267,50 @@ function SelectedStatusInfo({ animes, titles, statusInfo }) {
   );
 }
 
-function DeleteModal() {
-  return <></>;
+function DeleteModal({ status, title }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
+
+  const handleDelete = async () => {
+    const res = await deleteStatus(status);
+    if (!res) {
+      onClose();
+      toast({
+        title: `Error`,
+        status: "error",
+        isClosable: true,
+      });
+      return;
+    }
+    onClose();
+    router.reload();
+  };
+
+  return (
+    <>
+      <Button mt="1%" mr="5%" onClick={onOpen} colorScheme="red">
+        Delete
+      </Button>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Delete status from {title}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>Are you sure of that?</Text>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" variant="ghost" mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme="red" onClick={handleDelete}>
+              Delete
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
 }
 
 export async function getServerSideProps() {
