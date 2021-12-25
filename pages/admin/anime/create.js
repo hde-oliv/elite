@@ -72,6 +72,7 @@ export default function CreatePostPage() {
       links: [folder],
       mal_url,
       slug,
+      type,
       torrents: [torrentOne, torrentTwo, torrentThree],
       title,
     };
@@ -233,3 +234,4 @@ export default function CreatePostPage() {
     </>
   );
 }
+
