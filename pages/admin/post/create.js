@@ -196,6 +196,7 @@ export default function CreatePostPage({ staff, titles }) {
                         <FormLabel>Preview Text</FormLabel>
                         <Textarea
                           value={preview_text}
+                          placeholder="Text that will appear on home"
                           onChange={handlePreviewTextChange}
                         />
                       </FormControl>
