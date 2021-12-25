@@ -137,6 +137,9 @@ export default function Home({ posts, status }) {
             >
               <Heading size="md">Status dos Projetos</Heading>
               <Divider size="2px" pt="4%" />
+              {status.length === 0 && (<Box pt="6%"><Heading as="i" color="grey"  size="sm">
+                {"Nenhum projeto sendo feito no momento!"}
+              </Heading></Box>)}
               {status.map((status, index) => (
                 <Box key={index} textAlign="left" pl="2%" pt="6%">
                   <Heading size="sm">• {status.title}</Heading>
