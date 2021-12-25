@@ -7,21 +7,36 @@ import {
   Center,
   Heading,
   Divider,
+  useToast,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import NavBar from "../components/NavBar";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import { getPosts, getStatus } from "../lib/Firebase";
+import { getPaginatedPosts, getStatus } from "../lib/Firebase";
 
 export default function Home({ posts, status }) {
   const router = useRouter();
-  const postList = posts;
-  const postLength = postList.length;
-  const [actualPosts, setActualPosts] = useState(postList.slice(0, 4));
+  const [actualPosts, setActualPosts] = useState(posts);
+  const [actualPage, setActualPage] = useState(1);
+  const toast = useToast();
+  const [isEnabled, setIsEnabled] = useState(true);
 
-  const handleMorePosts = () => {
-    setActualPosts(postList.slice(0, actualPosts.length + 4));
+  const handleMorePosts = async () => {
+    const newPosts = await getPaginatedPosts(actualPage);
+    if (newPosts.length === 0) {
+      toast ({
+        title: "Acabaram os posts",
+        description: "Volte mais tarde!",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
+      setIsEnabled(false);
+      return;
+    }
+    setActualPage(actualPage + 1);
+    setActualPosts(actualPosts.concat(newPosts));
   }
 
   return (
@@ -133,11 +148,9 @@ export default function Home({ posts, status }) {
             </Box>
             {/* Project Status End */}
           </Center>
-          {postLength != actualPosts.length && (
-            <Button mb="7%" onClick={handleMorePosts}>
+            {isEnabled && <Button mb="7%" onClick={handleMorePosts}>
               Posts anteriores
-            </Button>
-          )}
+            </Button>}
         </Flex>
         {/* Sidebar End */}
       </Flex>
@@ -146,10 +159,10 @@ export default function Home({ posts, status }) {
 }
 
 export async function getServerSideProps() {
-  const postList = await getPosts();
+  const posts = await getPaginatedPosts(0);
   const statusList = await getStatus();
 
   return {
-    props: { posts: postList, status: statusList },
+    props: { posts: posts, status: statusList },
   };
 }
