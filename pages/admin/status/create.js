@@ -6,8 +6,6 @@ import {
   Center,
   Input,
   Flex,
-  NumberInput,
-  NumberInputField,
   Box,
   Heading,
   Text,
@@ -33,7 +31,7 @@ import NavBar from "../../../components/NavBar";
 export default function CreatePostPage({ animes, titles }) {
   const { user, isAdmin } = useContext(UserContext);
   const [status, setStatus] = useState("");
-  const [nextNumber, setNextNumber] = useState(null);
+  const [nextNumber, setNextNumber] = useState("");
   const [type, setType] = useState("");
   const [anime, setAnime] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +44,7 @@ export default function CreatePostPage({ animes, titles }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
-    if (anime === "" || status === "" || type === "" || nextNumber === null) {
+    if (anime === "" || status === "" || type === "" || nextNumber === "") {
       toast({
         title: `A field is missing`,
         status: "error",
@@ -79,7 +77,7 @@ export default function CreatePostPage({ animes, titles }) {
           isClosable: true,
         });
         setStatus("");
-        setNextNumber(0);
+        setNextNumber("");
       } else {
         toast({
           title: `Error`,
@@ -159,13 +157,11 @@ export default function CreatePostPage({ animes, titles }) {
                       </FormControl>
                       <FormControl id="next" isRequired>
                         <FormLabel>Next</FormLabel>
-                        <NumberInput>
-                          <NumberInputField
-                            placeholder="Insert the next number to be released (ex: 1, 2, etc...)"
-                            value={nextNumber}
-                            onChange={handleNextNumberChange}
-                          />
-                        </NumberInput>
+                        <Input
+                          placeholder="Insert the next number to be released (ex: 1, 2, etc...)"
+                          value={nextNumber}
+                          onChange={handleNextNumberChange}
+                        />
                       </FormControl>
                       <Center>
                         <Button
