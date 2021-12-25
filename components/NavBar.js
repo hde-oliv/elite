@@ -10,11 +10,12 @@ import {
   Icon,
   Heading,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 import MenuDrawer from "./MenuDrawer";
 import { SiDiscord, SiFacebook, SiGithub } from "react-icons/si";
 import { useRouter } from "next/router";
+import { UserContext } from "../lib/UserContext";
 
 export default function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -35,6 +36,8 @@ export default function NavBar() {
     e.preventDefault();
   };
 
+  const { user, isAdmin } = useContext(UserContext);
+
   return (
     <Box pl="5%" pr="5%" pt="1.5%" pb="1.5%">
       <Flex p="0%">
@@ -51,6 +54,11 @@ export default function NavBar() {
           </InputGroup> */}
         </Flex>
         <Flex flex="1" justifyContent="end" ml="auto">
+          {user && isAdmin && (
+            <Button mr="2%" onClick={() => router.push('/admin')}>
+              Admin
+            </Button>
+          )}
           <Button onClick={() => toggleColorMode()} mr="2%">
             {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           </Button>
@@ -70,6 +78,7 @@ export default function NavBar() {
             mr="2%"
           />
           <MenuDrawer />
+
         </Flex>
       </Flex>
     </Box>
