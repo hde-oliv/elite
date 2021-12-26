@@ -81,7 +81,7 @@ export default function PostCreatePage({ staff, titles }) {
       setIsLoading(false);
       if (res) {
         toast({
-          title: `Post updated`,
+          title: `Post created`,
           status: "success",
           isClosable: true,
         });
