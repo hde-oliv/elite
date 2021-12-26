@@ -33,6 +33,10 @@ export default function AnimePage({ anime }) {
                   <Image
                     src={anime.image}
                     cursor="pointer"
+                    height="600px"
+                    width="439px"
+                    borderRadius="md"
+                    shadow="xs"
                     maxHeight="600px"
                     maxWidth="439px"
                     alt={anime.title}
