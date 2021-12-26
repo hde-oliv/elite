@@ -12,10 +12,14 @@ import {
 } from "@chakra-ui/react";
 import { useState, useContext } from "react";
 import { MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
-import MenuDrawer from "./MenuDrawer";
+// import MenuDrawer from "./MenuDrawer";
+import dynamic from "next/dynamic";
+
 import { SiDiscord, SiFacebook, SiGithub } from "react-icons/si";
 import { useRouter } from "next/router";
 import { UserContext } from "../lib/UserContext";
+
+const MenuDrawer = dynamic(() => import('./MenuDrawer'));
 
 export default function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();
