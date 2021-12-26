@@ -18,6 +18,7 @@ import remarkBreaks from "remark-breaks";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 import { MDXComponents } from "../../components/MDXComponents";
+import Footer from "../../components/Footer";
 
 export default function PostPage({ post }) {
   const router = useRouter();
@@ -87,6 +88,7 @@ export default function PostPage({ post }) {
         </Box>
         {/* Text Box End */}
       </Box>
+      <Footer />
     </Flex>
   );
 }

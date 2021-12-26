@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import NavBar from "../../components/NavBar";
+import Footer from "../../components/Footer";
 import { getSpecial } from "../../lib/Firebase";
 
 export default function SpecialPage({ special }) {
@@ -99,6 +100,7 @@ export default function SpecialPage({ special }) {
         </Box>
         {/* Text Box End */}
       </Box>
+      <Footer />
     </Flex>
   );
 }

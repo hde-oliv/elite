@@ -14,6 +14,7 @@ import NavBar from "../components/NavBar";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { getPaginatedPosts, getStatus } from "../lib/Firebase";
+import Footer from "../components/Footer";
 
 export default function Home({ posts, status }) {
   const router = useRouter();
@@ -42,7 +43,7 @@ export default function Home({ posts, status }) {
   return (
     <Flex flexDirection="column">
       <NavBar pd="auto" />
-      <Flex pt="1%">
+      <Flex pt="1%" pb="5%">
         {/* Post Box Start */}
         <Flex flex="4" ml="5%">
           <Flex flexDirection="column" width="100%">
@@ -163,6 +164,7 @@ export default function Home({ posts, status }) {
         </Flex>
         {/* Sidebar End */}
       </Flex>
+      <Footer />
     </Flex>
   );
 }

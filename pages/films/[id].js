@@ -9,6 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import Footer from "../../components/Footer";
 import NavBar from "../../components/NavBar";
 import { getFilm } from "../../lib/Firebase";
 
@@ -99,6 +100,7 @@ export default function FilmPage({ film }) {
         </Box>
         {/* Text Box End */}
       </Box>
+      <Footer />
     </Flex>
   );
 }

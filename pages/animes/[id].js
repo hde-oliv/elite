@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import NavBar from "../../components/NavBar";
 import { getAnime } from "../../lib/Firebase";
+import Footer from "../../components/Footer";
 
 export default function AnimePage({ anime }) {
   return (
@@ -99,6 +100,7 @@ export default function AnimePage({ anime }) {
         </Box>
         {/* Text Box End */}
       </Box>
+      <Footer />
     </Flex>
   );
 }

@@ -14,7 +14,7 @@ import '@fontsource/readex-pro/400.css';
 import '@fontsource/readex-pro/500.css';
 import '@fontsource/readex-pro/600.css';
 import theme from '../lib/Theme';
-import Footer from "../components/Footer";
+
 
 function MyApp({ Component, pageProps }) {
   const [user] = useAuthState(auth);
@@ -43,7 +43,6 @@ function MyApp({ Component, pageProps }) {
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <UserContext.Provider value={{ user, isAdmin }}>
           <Component {...pageProps} />
-          <Footer />
         </UserContext.Provider>
       </ChakraProvider>
     </>

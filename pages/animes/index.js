@@ -3,6 +3,7 @@ import NavBar from "../../components/NavBar";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { getAnimes } from "../../lib/Firebase";
 import { useRouter } from "next/router";
+import Footer from "../../components/Footer";
 
 export default function AnimesPage({ animeList }) {
   const router = useRouter();
@@ -63,6 +64,7 @@ export default function AnimesPage({ animeList }) {
           </Grid>
         </Box>
       </Box>
+      <Footer />
     </Flex>
   );
 }

@@ -1,4 +1,5 @@
 import { Flex, Text, Box, Image, Grid, Heading } from "@chakra-ui/react";
+import Footer from "../../components/Footer";
 import NavBar from "../../components/NavBar";
 import { getStaff } from "../../lib/Firebase";
 
@@ -45,6 +46,7 @@ export default function StaffPage({ staff }) {
           </Grid>
         </Box>
       </Box>
+      <Footer />
     </Flex>
   );
 }
