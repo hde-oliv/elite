@@ -59,7 +59,7 @@ function LoggedInPage() {
       >
         <Box>
           <Flex boxShadow="lg" p="6" rounded="md" borderRadius="md">
-            <Flex mr="auto" justifyContent="start" flex="2">
+            <Flex mr="auto" justifyContent="start" flex="2" pl="5%">
               <Button
                 mr="3%"
                 width="100%"
@@ -106,7 +106,7 @@ function LoggedInPage() {
                 Logout
               </Button>
             </Flex>
-            <Flex ml="auto" justifyContent="end" flex="1">
+            <Flex ml="auto" justifyContent="end" flex="1" pr="5%">
               <Center flexDirection="column">
                 <Text mb="5%"> Logged as: {user.email}</Text>
               </Center>
