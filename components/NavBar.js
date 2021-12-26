@@ -3,41 +3,27 @@ import {
   Button,
   Flex,
   IconButton,
-  Input,
-  InputGroup,
-  InputRightElement,
   useColorMode,
   Icon,
   Heading,
 } from "@chakra-ui/react";
-import { useState, useContext } from "react";
-import { MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
-// import MenuDrawer from "./MenuDrawer";
+import { useContext } from "react";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import dynamic from "next/dynamic";
-
 import { SiDiscord, SiFacebook, SiGithub } from "react-icons/si";
 import { useRouter } from "next/router";
 import { UserContext } from "../lib/UserContext";
 
-const MenuDrawer = dynamic(() => import('./MenuDrawer'));
+const MenuDrawer = dynamic(() => import("./MenuDrawer"));
 
 export default function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();
-  const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
   const info = {
     name: "elite fansub",
     discord: "https://discord.gg/dh7NVW6A7U",
     facebook: "https://www.facebook.com/EliteFansub/",
     github: "https://github.com/hde-oliv/elite",
-  };
-
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const handleSearch = (e) => {
-    e.preventDefault();
   };
 
   const { user, isAdmin } = useContext(UserContext);
@@ -47,19 +33,13 @@ export default function NavBar() {
       <Flex p="0%">
         <Flex flex="1" justifyContent="start" mr="auto">
           <Heading
+            width="100%"
             onClick={() => router.push("/")}
             userSelect="none"
             cursor="pointer"
           >
             {info.name}
           </Heading>
-        </Flex>
-        <Flex flex="3" justifyContent="center" alignSelf="center">
-          {/* <InputGroup>
-            <Input placeholder="Pesquisar" value={searchTerm} onChange={handleChange} />
-            <InputRightElement>
-            </InputRightElement>
-          </InputGroup> */}
         </Flex>
         <Flex flex="1" justifyContent="end" ml="auto">
           {user && isAdmin && (
@@ -78,11 +58,6 @@ export default function NavBar() {
           <IconButton
             onClick={() => window.open(info.facebook, "_blank")}
             icon={<Icon as={SiFacebook} />}
-            mr="2%"
-          />
-          <IconButton
-            onClick={() => window.open(info.github, "_blank")}
-            icon={<Icon as={SiGithub} />}
             mr="2%"
           />
           <MenuDrawer />
