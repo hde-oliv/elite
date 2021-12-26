@@ -4,6 +4,7 @@ import {
   Box,
   Image,
   Center,
+  Heading,
   VStack,
   Grid,
   Button,
@@ -53,9 +54,9 @@ export default function SpecialPage({ special }) {
             {/* Text Box Start */}
             <Box flex="2" pt="1%">
               <VStack spacing="4%">
-                <Text fontSize="5xl" as="b">
-                  {special.title}
-                </Text>
+                                <Heading >
+                  {film.title}
+                </Heading>
                 <Text fontSize="md" textAlign="center">
                   {special.description}
                 </Text>

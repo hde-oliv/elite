@@ -5,6 +5,7 @@ import {
   Image,
   Center,
   VStack,
+  Heading,
   Grid,
   Button,
 } from "@chakra-ui/react";
@@ -53,9 +54,9 @@ export default function AnimePage({ anime }) {
             {/* Text Box Start */}
             <Box flex="2" pt="1%">
               <VStack spacing="4%">
-                <Text fontSize="5xl" as="b">
-                  {anime.title}
-                </Text>
+                                <Heading >
+                  {film.title}
+                </Heading>
                 <Text fontSize="md" textAlign="center">
                   {anime.description}
                 </Text>

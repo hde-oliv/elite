@@ -1,12 +1,12 @@
 import {
   Flex,
-  Image,
   Box,
   Text,
   Button,
   Center,
   Heading,
   Divider,
+  Image,
   useToast,
   Tooltip,
 } from "@chakra-ui/react";
@@ -68,8 +68,10 @@ export default function Home({ posts, status }) {
                 borderRadius="md"
               >
                 <Center flexDirection="column">
-                  <Tooltip label="Leia mais" placement="bottom-end">
+                  <Box width="480px" height="270px">
                     <Image
+                      height="100%"
+                      width="100%"
                       maxWidth="480px"
                       maxHeight="270px"
                       src={post.image}
@@ -78,20 +80,20 @@ export default function Home({ posts, status }) {
                       borderRadius="md"
                       cursor="pointer"
                     />
-                  </Tooltip>
+                  </Box>
                   <Text mt="4%" as="i" color="grey">
                     {post.author} - {post.date}
                   </Text>
                 </Center>
                 <Flex
-                  pl="5%"
+                  ml="5%"
                   flexDirection="column"
                   maxWidth="100%"
                   maxHeight="100%"
                   width="100%"
                   overflow="auto"
                 >
-                  <Heading textAlign="start" mb="4%">
+                  <Heading size="lg" textAlign="start" mb="4%">
                     {post.title}
                   </Heading>
                   <Box maxHeight="100%" height="100%">
@@ -189,7 +191,7 @@ export default function Home({ posts, status }) {
 export async function getServerSideProps({ res }) {
   const posts = await getPaginatedPosts(0);
   const statusList = await getStatus();
-  
+
   res.setHeader(
     'Cache-Control',
     'public, max-age=1800, stale-while-revalidate=60'

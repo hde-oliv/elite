@@ -4,6 +4,7 @@ import {
   Box,
   Image,
   Center,
+  Heading,
   VStack,
   Grid,
   Button,
@@ -51,11 +52,11 @@ export default function FilmPage({ film }) {
             </Center>
             {/* Image Box End */}
             {/* Text Box Start */}
-            <Box flex="2" pt="1%">
+            <Box flex="2" ml="5%" pt="1%">
               <VStack spacing="4%">
-                <Text fontSize="5xl" as="b">
+                <Heading >
                   {film.title}
-                </Text>
+                </Heading>
                 <Text fontSize="md" textAlign="center">
                   {film.description}
                 </Text>
@@ -116,7 +117,7 @@ export async function getServerSideProps({ params, res }) {
     'Cache-Control',
     'public, max-age=86400, stale-while-revalidate=1800'
   )
-  
+
   return {
     props: { film: filmData },
   };
