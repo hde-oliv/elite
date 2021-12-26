@@ -88,6 +88,7 @@ export default function PostCreatePage({ staff, titles }) {
         setImage("");
         setText("");
         setTitle("");
+        setPreviewText("");
       } else {
         toast({
           title: `Error`,
