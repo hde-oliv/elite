@@ -109,8 +109,13 @@ export default function SpecialPage({ special }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, res }) {
   const specialData = await getSpecial(params.id);
+
+  res.setHeader(
+    'Cache-Control',
+    'public, max-age=86400, stale-while-revalidate=1800'
+  )
 
   return {
     props: { special: specialData },

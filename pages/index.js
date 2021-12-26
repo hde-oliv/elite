@@ -186,10 +186,14 @@ export default function Home({ posts, status }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }) {
   const posts = await getPaginatedPosts(0);
   const statusList = await getStatus();
-
+  
+  res.setHeader(
+    'Cache-Control',
+    'public, max-age=1800, stale-while-revalidate=60'
+  )
   return {
     props: { posts: posts, status: statusList },
   };

@@ -77,8 +77,13 @@ export default function AnimesPage({ animeList }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }) {
   const animesData = await getAnimes();
+
+  res.setHeader(
+    'Cache-Control',
+    'public, max-age=86400, stale-while-revalidate=1800'
+  )
 
   return {
     props: { animeList: animesData },

@@ -97,13 +97,18 @@ export default function PostPage({ post }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, res }) {
   const postData = await getPost(params.id);
   const mdxSource = await serialize(postData.text, {
     mdxOptions: {
       remarkPlugins: [remarkBreaks, remarkGfm],
     },
   });
+
+  res.setHeader(
+    'Cache-Control',
+    'public, max-age=3600, stale-while-revalidate=1800'
+  )
 
   return {
     props: { post: { ...postData, text: mdxSource } },

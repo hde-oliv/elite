@@ -109,9 +109,14 @@ export default function FilmPage({ film }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, res }) {
   const filmData = await getFilm(params.id);
 
+  res.setHeader(
+    'Cache-Control',
+    'public, max-age=86400, stale-while-revalidate=1800'
+  )
+  
   return {
     props: { film: filmData },
   };
