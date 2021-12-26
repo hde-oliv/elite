@@ -1,11 +1,19 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { ColorModeScript } from "@chakra-ui/react";
-import theme from "../lib/Theme";
 import { UserContext } from "../lib/UserContext";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, checkAdmin, logoutFromGoogle } from "../lib/Firebase";
+import '@fontsource/nunito/400.css';
+import '@fontsource/nunito/600.css';
+import '@fontsource/nunito/500.css';
+import '@fontsource/nunito/700.css';
+import '@fontsource/readex-pro/700.css';
+import '@fontsource/readex-pro/400.css';
+import '@fontsource/readex-pro/500.css';
+import '@fontsource/readex-pro/600.css';
+import theme from '../lib/Theme';
 
 function MyApp({ Component, pageProps }) {
   const [user] = useAuthState(auth);
@@ -30,7 +38,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <UserContext.Provider value={{ user, isAdmin }}>
           <Component {...pageProps} />
