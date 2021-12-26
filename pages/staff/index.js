@@ -28,6 +28,9 @@ export default function StaffPage({ staff }) {
                 p="6"
                 rounded="md"
                 borderRadius="md"
+                _hover={{
+                  boxShadow: "xl",
+                }}
                 mb="3%"
               >
                 <Flex pr="3%" pl="3%" width="100%">
