@@ -19,7 +19,7 @@ export default function FilmsPage({ filmList }) {
         borderColor="gray.100"
       >
         <Box>
-          <Grid templateColumns="repeat(2, 1fr)" columnGap="5%" rowGap="2%">
+          <Grid templateColumns="repeat(2, 1fr)" columnGap="5%">
             {filmList.map((film, index) => (
               <Flex
                 key={index}
