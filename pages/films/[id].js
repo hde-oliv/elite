@@ -12,10 +12,14 @@ import Link from "next/link";
 import Footer from "../../components/Footer";
 import NavBar from "../../components/NavBar";
 import { getFilm } from "../../lib/Firebase";
+import Head from "next/head";
 
 export default function FilmPage({ film }) {
   return (
     <Flex flexDirection="column" height="100vh">
+     <Head>
+        <title>{film.title}</title>
+      </Head>
       <NavBar pd="auto" justifyContent="start" />
       <Box
         p="5%"

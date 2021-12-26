@@ -12,10 +12,14 @@ import Link from "next/link";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { getSpecial } from "../../lib/Firebase";
+import Head from "next/head";
 
 export default function SpecialPage({ special }) {
   return (
     <Flex flexDirection="column" height="100vh">
+      <Head>
+        <title>{special.title}</title>
+      </Head>
       <NavBar pd="auto" justifyContent="start" />
       <Box
         p="5%"

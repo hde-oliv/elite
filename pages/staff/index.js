@@ -2,10 +2,14 @@ import { Flex, Text, Box, Image, Grid, Heading } from "@chakra-ui/react";
 import Footer from "../../components/Footer";
 import NavBar from "../../components/NavBar";
 import { getStaff } from "../../lib/Firebase";
+import Head from "next/head";
 
 export default function StaffPage({ staff }) {
   return (
     <Flex flexDirection="column" height="100vh">
+      <Head>
+        <title>Staff</title>
+      </Head>
       <NavBar pd="auto" justifyContent="start" />
       <Box
         p="5%"

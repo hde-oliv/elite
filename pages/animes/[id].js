@@ -12,10 +12,14 @@ import Link from "next/link";
 import NavBar from "../../components/NavBar";
 import { getAnime } from "../../lib/Firebase";
 import Footer from "../../components/Footer";
+import Head from "next/head";
 
 export default function AnimePage({ anime }) {
   return (
     <Flex flexDirection="column" height="100vh">
+      <Head>
+        <title>{anime.title}</title>
+      </Head>
       <NavBar pd="auto" justifyContent="start" />
       <Box
         p="5%"

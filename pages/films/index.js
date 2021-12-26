@@ -4,12 +4,16 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { getFilms } from "../../lib/Firebase";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer";
+import Head from "next/head";
 
 export default function FilmsPage({ filmList }) {
   const router = useRouter();
 
   return (
     <Flex flexDirection="column" height="100vh">
+      <Head>
+        <title>Filmes</title>
+      </Head>
       <NavBar pd="auto" justifyContent="start" />
       <Box
         p="5%"

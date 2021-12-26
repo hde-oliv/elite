@@ -21,6 +21,7 @@ import "@fontsource/readex-pro/400.css";
 import "@fontsource/readex-pro/500.css";
 import "@fontsource/readex-pro/600.css";
 import theme from "../lib/Theme";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps, router }) {
   const [user] = useAuthState(auth);
@@ -48,8 +49,11 @@ function MyApp({ Component, pageProps, router }) {
       <ChakraProvider theme={theme}>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <UserContext.Provider value={{ user, isAdmin }}>
-          <ScaleFade key={router.route} in="true">
-            <Component {...pageProps} />
+        <ScaleFade key={router.route} in="true">
+          <Head>
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
+          <Component {...pageProps} />
           </ScaleFade>
         </UserContext.Provider>
       </ChakraProvider>

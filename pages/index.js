@@ -16,6 +16,7 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { getPaginatedPosts, getStatus } from "../lib/Firebase";
 import Footer from "../components/Footer";
+import Head from "next/head";
 
 export default function Home({ posts, status }) {
   const router = useRouter();
@@ -43,6 +44,9 @@ export default function Home({ posts, status }) {
 
   return (
     <Flex flexDirection="column">
+      <Head>
+        <title>elite fansub</title>
+      </Head>
       <NavBar pd="auto" />
       <Flex pt="1%" pb="5%">
         {/* Post Box Start */}

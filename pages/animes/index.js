@@ -4,12 +4,16 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { getAnimes } from "../../lib/Firebase";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer";
+import Head from "next/head";
 
 export default function AnimesPage({ animeList }) {
   const router = useRouter();
 
   return (
     <Flex flexDirection="column" height="100vh">
+      <Head>
+        <title>Animes</title>
+      </Head>
       <NavBar pd="auto" justifyContent="start" />
       <Box
         p="5%"
