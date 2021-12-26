@@ -29,6 +29,10 @@ export default function AnimesPage({ animeList }) {
                 rounded="md"
                 borderRadius="md"
                 mb="3%"
+                transition="box-shadow 0.2s"
+                _hover={{
+                  boxShadow: "2xl",
+                }}
               >
                 <Flex pr="3%" pl="3%" width="100%">
                   <Image

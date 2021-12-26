@@ -7,6 +7,7 @@ import {
   Heading,
   Image,
   Button,
+  Tooltip,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -48,13 +49,16 @@ export default function PostPage({ post }) {
             {/* Image Box Start */}
             <Center flex="1">
               <Flex p="4%" pb="2%" pt="2%">
-                <Image
-                  src={post.image}
-                  cursor="pointer"
-                  maxHeight="480px"
-                  alt={post.title}
-                  onClick={() => router.push(`/${post.type}s/${post.anime}`)}
-                />
+                <Tooltip label="Página do anime" placement="bottom-end">
+                  <Image
+                    src={post.image}
+                    cursor="pointer"
+                    borderRadius="md"
+                    maxHeight="480px"
+                    alt={post.title}
+                    onClick={() => router.push(`/${post.type}s/${post.anime}`)}
+                  />
+                </Tooltip>
               </Flex>
             </Center>
             {/* Image Box End */}

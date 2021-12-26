@@ -8,6 +8,7 @@ import {
   Heading,
   Divider,
   useToast,
+  Tooltip,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import NavBar from "../components/NavBar";
@@ -56,16 +57,24 @@ export default function Home({ posts, status }) {
                 mb="2%"
                 boxShadow="lg"
                 rounded="md"
+                transition="box-shadow 0.2s"
+                _hover={{
+                  boxShadow: "2xl",
+                }}
                 borderRadius="md"
               >
                 <Center flexDirection="column">
-                  <Image
-                    maxWidth="480px"
-                    maxHeight="270px"
-                    src={post.image}
-                    alt={post.title}
-                    borderRadius="md"
-                  />
+                  <Tooltip label="Leia mais" placement="bottom-end">
+                    <Image
+                      maxWidth="480px"
+                      maxHeight="270px"
+                      src={post.image}
+                      alt={post.title}
+                      onClick={() => router.push(`/posts/${post.slug}`)}
+                      borderRadius="md"
+                      cursor="pointer"
+                    />
+                  </Tooltip>
                   <Text mt="4%" as="i" color="grey">
                     {post.author} - {post.date}
                   </Text>
@@ -132,6 +141,10 @@ export default function Home({ posts, status }) {
               rounded="md"
               borderRadius="md"
               ml="1%"
+              transition="box-shadow 0.2s"
+              _hover={{
+                boxShadow: "xl",
+              }}
               width="100%"
               textAlign="center"
               p="6%"
