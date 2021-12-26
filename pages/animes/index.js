@@ -33,7 +33,12 @@ export default function AnimesPage({ animeList }) {
                   <Image
                     alt={anime.title}
                     src={anime.image}
+                    height="250px"
+                    width="170px"
                     maxHeight="250px"
+                    maxWidth="170px"
+                    borderRadius="md"
+                    shadow="xs"
                   />
                   <Box
                     width="100%"

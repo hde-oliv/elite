@@ -30,7 +30,16 @@ export default function FilmsPage({ filmList }) {
                 mb="3%"
               >
                 <Flex pr="3%" pl="3%" width="100%">
-                  <Image alt={film.title} src={film.image} maxHeight="250px" />
+                  <Image
+                    alt={film.title}
+                    src={film.image}
+                    height="250px"
+                    width="170px"
+                    maxHeight="250px"
+                    maxWidth="170px"
+                    borderRadius="md"
+                    shadow="xs"
+                  />
                   <Box
                     width="100%"
                     alignSelf="center"

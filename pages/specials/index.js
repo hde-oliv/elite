@@ -33,7 +33,12 @@ export default function SpecialsPage({ specialList }) {
                   <Image
                     alt={special.title}
                     src={special.image}
+                    height="250px"
+                    width="170px"
                     maxHeight="250px"
+                    maxWidth="170px"
+                    borderRadius="md"
+                    shadow="xs"
                   />
                   <Box
                     width="100%"
