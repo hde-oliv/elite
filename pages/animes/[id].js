@@ -55,7 +55,7 @@ export default function AnimePage({ anime }) {
             <Box flex="2" pt="1%">
               <VStack spacing="4%">
                                 <Heading >
-                  {film.title}
+                  {anime.title}
                 </Heading>
                 <Text fontSize="md" textAlign="center">
                   {anime.description}
