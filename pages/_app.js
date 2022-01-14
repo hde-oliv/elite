@@ -1,10 +1,6 @@
 import {
   ChakraProvider,
-  Collapse,
-  Fade,
   ScaleFade,
-  Slide,
-  SlideFade,
 } from "@chakra-ui/react";
 import { ColorModeScript } from "@chakra-ui/react";
 import { UserContext } from "../lib/UserContext";
@@ -49,11 +45,11 @@ function MyApp({ Component, pageProps, router }) {
       <ChakraProvider theme={theme}>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <UserContext.Provider value={{ user, isAdmin }}>
-        <ScaleFade key={router.route} in="true">
-          <Head>
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
-          <Component {...pageProps} />
+          <ScaleFade key={router.route} in="true">
+            <Head>
+              <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <Component {...pageProps} />
           </ScaleFade>
         </UserContext.Provider>
       </ChakraProvider>
