@@ -47,7 +47,7 @@ const StatusItem = ({ statusItem }: StatusItemProps) => {
   const { title, next, status } = statusItem;
 
   return (
-    <Box textAlign="left" pl="2%" pt="6%">
+    <Box textAlign="left" pl={{ base: "0px", lg: "2%" }} pt="6%">
       <Heading size="sm">• {title}</Heading>
       <Text as="i" color="grey">
         {next} - {status}
@@ -95,9 +95,9 @@ const PostItem = ({ postItem }: PostItemProps) => {
   return (
     <Flex
       p="4%"
-      pt={{ base: "4%", lg: "2%" }}
-      pb={{ base: "4%", xl: "3%", "2xl": "2%" }}
-      mb="3%"
+      pt={{ base: "6%", lg: "5%" }}
+      pb={{ base: "4%", xl: "3%", "2xl": "3%" }}
+      mb={{ base: "5%", lg: "3%" }}
       boxShadow="lg"
       rounded="md"
       transition="box-shadow 0.2s"
@@ -105,14 +105,14 @@ const PostItem = ({ postItem }: PostItemProps) => {
         boxShadow: "2xl",
       }}
       borderRadius="md"
-      flexDirection={{ base: "column", lg: "row" }}
+      flexDirection="column"
     >
       {/* Image, author and date */}
       <Center flexDirection="column">
         <Container
           centerContent
-          maxW="container.lg"
-          width={{ base: "inherit", xl: "386px", "2xl": "512px" }}
+          maxW="container.xl"
+          width={{ base: "100%", lg: "90%" }}
         >
           <Image
             width="100%"
@@ -126,52 +126,41 @@ const PostItem = ({ postItem }: PostItemProps) => {
           />
         </Container>
         <Text
-          m={{ base: "2%", lg: "4%" }}
+          m="2%"
+          mb="5px"
           fontSize={{ base: "sm", lg: "md" }}
           as="i"
           color="grey"
         >
           {author} - {date}
         </Text>
+        <Divider width="45%" mb="2%" />
       </Center>
       {/* Title, preview text and buttons */}
       <Flex
-        ml={{ base: "0%", lg: "5%" }}
         flexDirection="column"
         maxWidth="100%"
         maxHeight="100%"
         width="100%"
       >
         <Heading
-          textAlign={{ base: "center", lg: "start" }}
+          textAlign="center"
           fontSize={{ base: "3xl", md: "4xl", xl: "3xl", "2xl": "4xl" }}
           mb="3%"
         >
           {title}
         </Heading>
-        <Box
-          maxHeight="100%"
-          height="100%"
-          maxWidth="100%"
-          width="100%"
-          mb={{ base: "2%", lg: "0%" }}
-        >
+        <Container maxW="container.md" mb={{ base: "2%", lg: "0%" }}>
           <Text
             fontSize={{ base: "md", "2xl": "lg" }}
             maxHeight="100%"
             px={{ base: "1%", xl: "0%" }}
-            textAlign={{ base: "justify", "2xl": "start" }}
+            textAlign="justify"
           >
             {preview_text}
           </Text>
-        </Box>
-        <Flex
-          justifyContent={{ base: "center", "2xl": "end" }}
-          mt="3%"
-          pb="1%"
-          pr="1%"
-          width="100%"
-        >
+        </Container>
+        <Flex justifyContent="center" mt="3%" pb="1%" pr="1%" width="100%">
           <Button
             mr="2%"
             variant="outline"
@@ -200,7 +189,7 @@ const PostBox = ({
 }: PostBoxProps) => {
   return (
     <Flex
-      flex="4"
+      flex="5"
       ml={{ base: "1%", lg: "5%" }}
       mr={{ base: "1%", lg: "0%" }}
       mb={{ base: "5%", lg: "0%" }}
@@ -229,7 +218,7 @@ const PostBox = ({
 const SideBar = ({ statusList }: SideBarProps) => {
   return (
     <Flex
-      flex="1"
+      flex="2"
       pl="5%"
       pr="5%"
       mb={{ base: "5%", lg: "0%" }}
