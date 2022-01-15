@@ -67,7 +67,7 @@ const AnimeItem = ({ anime, router }: AnimeItemProps) => {
             rightIcon={<ArrowForwardIcon />}
             colorScheme="blue"
             mt="5%"
-            onClick={() => router.push(`/animes/${anime.slug}`)}
+            onClick={() => router.push(`/${anime.type}s/${anime.slug}`)}
           >
             Página
           </Button>
