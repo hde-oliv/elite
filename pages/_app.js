@@ -1,7 +1,4 @@
-import {
-  ChakraProvider,
-  ScaleFade,
-} from "@chakra-ui/react";
+import { ChakraProvider, ScaleFade } from "@chakra-ui/react";
 import { ColorModeScript } from "@chakra-ui/react";
 import { UserContext } from "../lib/UserContext";
 import { useEffect, useState } from "react";
@@ -48,6 +45,11 @@ function MyApp({ Component, pageProps, router }) {
           <ScaleFade key={router.route} in="true">
             <Head>
               <link rel="icon" href="/favicon.ico" />
+              <title>elite fansub</title>
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1"
+              />
             </Head>
             <Component {...pageProps} />
           </ScaleFade>

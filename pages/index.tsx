@@ -7,6 +7,7 @@ import {
   Heading,
   Divider,
   Image,
+  Container,
   useToast,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
@@ -16,7 +17,6 @@ import Post from "../models/Post";
 import Status from "../models/Status";
 import { getPaginatedPosts, getStatus } from "../lib/Firebase";
 import { useState } from "react";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
@@ -28,8 +28,11 @@ interface StatusItemProps {
   statusItem: Status;
 }
 
-interface PostListProps {
+interface PostBoxProps {
   postList: Post[];
+  getNewPosts: React.MouseEventHandler<HTMLButtonElement>;
+  showMorePosts: boolean;
+  morePostsButtonIsLoading: boolean;
 }
 
 interface PostItemProps {
@@ -38,8 +41,6 @@ interface PostItemProps {
 
 interface SideBarProps {
   statusList: Status[];
-  getNewPosts: React.MouseEventHandler<HTMLButtonElement>;
-  showMorePosts: boolean;
 }
 
 const StatusItem = ({ statusItem }: StatusItemProps) => {
@@ -94,9 +95,9 @@ const PostItem = ({ postItem }: PostItemProps) => {
   return (
     <Flex
       p="4%"
-      pt="2%"
-      pb="3%"
-      mb="2%"
+      pt={{ base: "4%", lg: "2%" }}
+      pb={{ base: "4%", xl: "3%", "2xl": "2%" }}
+      mb="3%"
       boxShadow="lg"
       rounded="md"
       transition="box-shadow 0.2s"
@@ -104,44 +105,68 @@ const PostItem = ({ postItem }: PostItemProps) => {
         boxShadow: "2xl",
       }}
       borderRadius="md"
+      flexDirection={{ base: "column", lg: "row" }}
     >
+      {/* Image, author and date */}
       <Center flexDirection="column">
-        <Box width="480px" height="270px">
+        <Container
+          centerContent
+          maxW="container.lg"
+          width={{ base: "inherit", xl: "386px", "2xl": "512px" }}
+        >
           <Image
-            height="100%"
             width="100%"
-            maxWidth="480px"
-            maxHeight="270px"
+            height="100%"
+            boxSize="100%"
             src={image}
             alt={title}
             onClick={() => router.push(`/posts/${slug}`)}
             borderRadius="md"
             cursor="pointer"
           />
-        </Box>
-        <Text mt="4%" as="i" color="grey">
+        </Container>
+        <Text
+          m={{ base: "2%", lg: "4%" }}
+          fontSize={{ base: "sm", lg: "md" }}
+          as="i"
+          color="grey"
+        >
           {author} - {date}
         </Text>
       </Center>
+      {/* Title, preview text and buttons */}
       <Flex
-        ml="5%"
+        ml={{ base: "0%", lg: "5%" }}
         flexDirection="column"
         maxWidth="100%"
         maxHeight="100%"
         width="100%"
-        overflow="auto"
       >
-        <Heading size="lg" textAlign="start" mb="4%">
+        <Heading
+          textAlign={{ base: "center", lg: "start" }}
+          fontSize={{ base: "3xl", md: "4xl", xl: "3xl", "2xl": "4xl" }}
+          mb="3%"
+        >
           {title}
         </Heading>
-        <Box maxHeight="100%" height="100%">
-          <Text fontSize="lg" noOfLines={[1, 2, 3]} maxHeight="100%">
+        <Box
+          maxHeight="100%"
+          height="100%"
+          maxWidth="100%"
+          width="100%"
+          mb={{ base: "2%", lg: "0%" }}
+        >
+          <Text
+            fontSize={{ base: "md", "2xl": "lg" }}
+            maxHeight="100%"
+            px={{ base: "1%", xl: "0%" }}
+            textAlign={{ base: "justify", "2xl": "start" }}
+          >
             {preview_text}
           </Text>
         </Box>
         <Flex
-          justifyContent="end"
-          justifySelf="end"
+          justifyContent={{ base: "center", "2xl": "end" }}
           mt="3%"
           pb="1%"
           pr="1%"
@@ -167,35 +192,53 @@ const PostItem = ({ postItem }: PostItemProps) => {
   );
 };
 
-const PostBox = ({ postList }: PostListProps) => {
+const PostBox = ({
+  postList,
+  getNewPosts,
+  showMorePosts,
+  morePostsButtonIsLoading,
+}: PostBoxProps) => {
   return (
-    <Flex flex="4" ml="5%">
-      <Flex flexDirection="column" width="100%">
+    <Flex
+      flex="4"
+      ml={{ base: "1%", lg: "5%" }}
+      mr={{ base: "1%", lg: "0%" }}
+      mb={{ base: "5%", lg: "0%" }}
+    >
+      <Flex flexDirection="column">
         {postList.map((post, index) => (
           <PostItem postItem={post} key={index} />
         ))}
+        {showMorePosts && (
+          <Button
+            mb="1%"
+            mt={{ base: "4%", lg: "0%" }}
+            size="lg"
+            alignSelf="center"
+            isLoading={morePostsButtonIsLoading}
+            onClick={getNewPosts}
+          >
+            Posts anteriores
+          </Button>
+        )}
       </Flex>
     </Flex>
   );
 };
 
-const SideBar = ({ statusList, getNewPosts, showMorePosts }: SideBarProps) => {
+const SideBar = ({ statusList }: SideBarProps) => {
   return (
     <Flex
       flex="1"
       pl="5%"
       pr="5%"
+      mb={{ base: "5%", lg: "0%" }}
       flexDirection="column"
       justifyContent="space-between"
     >
       <Center alignSelf="start" width="100%">
         <StatusBox statusList={statusList} />
       </Center>
-      {showMorePosts && (
-        <Button mb="7%" onClick={getNewPosts}>
-          Posts anteriores
-        </Button>
-      )}
     </Flex>
   );
 };
@@ -207,9 +250,11 @@ const HomePage = ({
   const [actualPosts, setActualPosts] = useState(posts);
   const [actualPage, setActualPage] = useState(1);
   const [isEnabled, setIsEnabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
   const getNewPosts = async () => {
+    setIsLoading(true);
     const newPosts = await getPaginatedPosts(actualPage);
     if (newPosts.length === 0) {
       toast({
@@ -220,28 +265,28 @@ const HomePage = ({
         isClosable: true,
       });
       setIsEnabled(false);
+      setIsLoading(false);
       return;
     }
     setActualPage(actualPage + 1);
     setActualPosts(actualPosts.concat(newPosts));
+    setIsLoading(false);
   };
 
   return (
-    <Flex flexDirection="column">
-      <Head>
-        <title>elite fansub</title>
-      </Head>
+    <Box maxW="100vw" mx="auto" px={{ base: 2, sm: 12, md: 17 }}>
       <NavBar />
-      <Flex pt="1%" pb="5%">
-        <PostBox postList={actualPosts} />
-        <SideBar
-          statusList={status}
+      <Flex flexDirection={{ base: "column", lg: "row" }} pt="1%" pb="5%">
+        <PostBox
+          postList={actualPosts}
           getNewPosts={getNewPosts}
           showMorePosts={isEnabled}
+          morePostsButtonIsLoading={isLoading}
         />
+        <SideBar statusList={status} />
       </Flex>
       <Footer />
-    </Flex>
+    </Box>
   );
 };
 
