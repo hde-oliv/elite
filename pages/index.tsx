@@ -125,16 +125,16 @@ const PostItem = ({ postItem }: PostItemProps) => {
             cursor="pointer"
           />
         </Container>
+        <Divider width="45%" mt="2%" />
         <Text
           m="2%"
-          mb="5px"
+          mb="1%"
           fontSize={{ base: "sm", lg: "md" }}
           as="i"
           color="grey"
         >
           {author} - {date}
         </Text>
-        <Divider width="45%" mb="2%" />
       </Center>
       {/* Title, preview text and buttons */}
       <Flex
