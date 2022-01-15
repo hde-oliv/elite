@@ -103,7 +103,7 @@ const PostItem = ({ post, router }: PostItemProps) => {
           textAlign="justify"
           fontSize={{ base: "md", "2xl": "lg" }}
         >
-          <MDXRemote {...post.text} components={MDXComponents} />
+          <Text> {post.text} </Text>
         </Container>
         <Center mt={{ base: "6%", lg: "2%" }}>
           <Button
@@ -138,12 +138,7 @@ const PostPage = ({
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const postData = await getPost(context.params?.id);
-  const mdxSource = await serialize(postData.text, {
-    mdxOptions: {
-      remarkPlugins: [remarkBreaks, remarkGfm],
-    },
-  });
+  const post = await getPost(context.params?.id);
 
   context.res.setHeader(
     "Cache-Control",
@@ -151,7 +146,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
 
   return {
-    props: { post: { ...postData, text: mdxSource } },
+    props: { post },
   };
 };
 
