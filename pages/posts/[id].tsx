@@ -124,7 +124,7 @@ const PostPage = ({
   const router = useRouter();
 
   return (
-    <Box mx="auto" px={{ base: 3, sm: 12, md: 17 }}>
+    <Box width="100%" maxW="100%" mx="auto" px={{ base: 3, sm: 12, md: 17 }}>
       <Head>
         <title>{post.title}</title>
       </Head>
