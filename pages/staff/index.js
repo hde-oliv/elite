@@ -60,9 +60,9 @@ export default function StaffPage({ staff }) {
 
 export async function getServerSideProps({ res }) {
   res.setHeader(
-    'Cache-Control',
-    'public, max-age=604800, stale-while-revalidate=86400'
-  )
+    "Cache-Control",
+    "public, max-age=604800, stale-while-revalidate=86400"
+  );
 
   const staff = await getStaff();
   return {

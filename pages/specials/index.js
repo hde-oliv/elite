@@ -81,9 +81,9 @@ export async function getServerSideProps({ res }) {
   const specialsData = await getSpecials();
 
   res.setHeader(
-    'Cache-Control',
-    'public, max-age=86400, stale-while-revalidate=1800'
-  )
+    "Cache-Control",
+    "public, max-age=86400, stale-while-revalidate=1800"
+  );
 
   return {
     props: { specialList: specialsData },

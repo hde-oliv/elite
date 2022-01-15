@@ -81,10 +81,10 @@ export async function getServerSideProps({ res }) {
   const filmsData = await getFilms();
 
   res.setHeader(
-    'Cache-Control',
-    'public, max-age=86400, stale-while-revalidate=1800'
-  )
-  
+    "Cache-Control",
+    "public, max-age=86400, stale-while-revalidate=1800"
+  );
+
   return {
     props: { filmList: filmsData },
   };

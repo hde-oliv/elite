@@ -54,9 +54,7 @@ export default function SpecialPage({ special }) {
             {/* Text Box Start */}
             <Box flex="2" pt="1%">
               <VStack spacing="4%">
-                                <Heading >
-                  {film.title}
-                </Heading>
+                <Heading>{film.title}</Heading>
                 <Text fontSize="md" textAlign="center">
                   {special.description}
                 </Text>
@@ -114,9 +112,9 @@ export async function getServerSideProps({ params, res }) {
   const specialData = await getSpecial(params.id);
 
   res.setHeader(
-    'Cache-Control',
-    'public, max-age=86400, stale-while-revalidate=1800'
-  )
+    "Cache-Control",
+    "public, max-age=86400, stale-while-revalidate=1800"
+  );
 
   return {
     props: { special: specialData },

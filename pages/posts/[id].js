@@ -106,9 +106,9 @@ export async function getServerSideProps({ params, res }) {
   });
 
   res.setHeader(
-    'Cache-Control',
-    'public, max-age=3600, stale-while-revalidate=1800'
-  )
+    "Cache-Control",
+    "public, max-age=3600, stale-while-revalidate=1800"
+  );
 
   return {
     props: { post: { ...postData, text: mdxSource } },

@@ -18,7 +18,7 @@ import Head from "next/head";
 export default function FilmPage({ film }) {
   return (
     <Flex flexDirection="column" height="100vh">
-     <Head>
+      <Head>
         <title>{film.title}</title>
       </Head>
       <NavBar pd="auto" justifyContent="start" />
@@ -54,9 +54,7 @@ export default function FilmPage({ film }) {
             {/* Text Box Start */}
             <Box flex="2" ml="5%" pt="1%">
               <VStack spacing="4%">
-                <Heading >
-                  {film.title}
-                </Heading>
+                <Heading>{film.title}</Heading>
                 <Text fontSize="md" textAlign="center">
                   {film.description}
                 </Text>
@@ -114,9 +112,9 @@ export async function getServerSideProps({ params, res }) {
   const filmData = await getFilm(params.id);
 
   res.setHeader(
-    'Cache-Control',
-    'public, max-age=86400, stale-while-revalidate=1800'
-  )
+    "Cache-Control",
+    "public, max-age=86400, stale-while-revalidate=1800"
+  );
 
   return {
     props: { film: filmData },

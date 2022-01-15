@@ -54,9 +54,7 @@ export default function AnimePage({ anime }) {
             {/* Text Box Start */}
             <Box flex="2" pt="1%">
               <VStack spacing="4%">
-                                <Heading >
-                  {anime.title}
-                </Heading>
+                <Heading>{anime.title}</Heading>
                 <Text fontSize="md" textAlign="center">
                   {anime.description}
                 </Text>
@@ -114,9 +112,9 @@ export async function getServerSideProps({ params, res }) {
   const animeData = await getAnime(params.id);
 
   res.setHeader(
-    'Cache-Control',
-    'public, max-age=86400, stale-while-revalidate=1800'
-  )
+    "Cache-Control",
+    "public, max-age=86400, stale-while-revalidate=1800"
+  );
   return {
     props: { anime: animeData },
   };
