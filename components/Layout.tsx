@@ -15,7 +15,6 @@ interface MainProps {
 const Main: React.FC<MainProps> = ({ children, router }) => {
   const [user] = useAuthState(auth);
   const [isAdmin, setIsAdmin] = useState(null || Boolean);
-  const r = useRouter();
 
   useEffect(() => {
     if (user != null) {
@@ -23,7 +22,7 @@ const Main: React.FC<MainProps> = ({ children, router }) => {
         if (!res) {
           logoutFromGoogle();
           setIsAdmin(false);
-          r.push("/");
+          router.push("/");
         } else {
           setIsAdmin(true);
         }
