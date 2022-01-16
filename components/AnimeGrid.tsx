@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Center,
   Flex,
   SimpleGrid,
   Heading,
@@ -34,12 +35,7 @@ const AnimeItem = ({ anime, router }: AnimeItemProps) => {
         boxShadow: "2xl",
       }}
     >
-      <Flex
-        pr="3%"
-        pl="3%"
-        width="100%"
-        flexDirection={{ base: "column", xl: "row" }}
-      >
+      <Flex pr="3%" pl="3%" width="100%" flexDirection="column">
         <Container centerContent maxW="container.xl">
           <Image
             alt={anime.title}
@@ -53,13 +49,15 @@ const AnimeItem = ({ anime, router }: AnimeItemProps) => {
             borderRadius="md"
           />
         </Container>
-        <Box
+        <Center
           width="100%"
+          height="100%"
+          flexDirection="column"
           alignSelf="center"
           textAlign="center"
-          pl={{ base: "0%", xl: "8%" }}
+          pl={{ base: "0%", xl: "0" }}
         >
-          <Heading fontSize="3xl" mt={{ base: "4", xl: "0%" }}>
+          <Heading fontSize="2xl" mt="4%">
             {anime.title}
           </Heading>
           <Button
@@ -71,7 +69,7 @@ const AnimeItem = ({ anime, router }: AnimeItemProps) => {
           >
             Página
           </Button>
-        </Box>
+        </Center>
       </Flex>
     </Flex>
   );
@@ -87,7 +85,7 @@ const AnimeGrid = ({ animeList, router }: AnimeGridProps) => {
       border="px"
       borderColor="gray.100"
     >
-      <SimpleGrid columns={{ base: 1, md: 2 }} columnGap="5%">
+      <SimpleGrid columns={{ base: 1, md: 3 }} columnGap="5%">
         {animeList.map((anime, index) => (
           <AnimeItem anime={anime} router={router} key={index} />
         ))}
