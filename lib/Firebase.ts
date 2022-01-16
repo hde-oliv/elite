@@ -13,13 +13,19 @@ import {
   serverTimestamp,
   query,
   orderBy,
+  QueryDocumentSnapshot,
+  DocumentData,
 } from "firebase/firestore/lite";
 import {
   GoogleAuthProvider,
   getAuth,
   signInWithPopup,
   signOut,
+  User,
 } from "firebase/auth";
+import Post from "../models/Post";
+import Status from "../models/Status";
+import Anime from "../models/Anime";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAhUgRnnqlTQDoZoYiI_goe-oGXwLFtxig",
@@ -42,7 +48,7 @@ export async function getPosts() {
   return postSnap.docs.map((doc) => postToJSON(doc));
 }
 
-export async function getPaginatedPosts(page) {
+export async function getPaginatedPosts(page: number) {
   if (page === 0) {
     const firstBatch = query(
       collection(database, "posts"),
@@ -69,14 +75,15 @@ export async function getPaginatedPosts(page) {
     return postSnap.docs.map((doc) => postToJSON(doc));
   }
 }
-export async function getPost(name) {
+
+export async function getPost(name: string) {
   const postRef = doc(database, "posts", name);
   const postSnap = await getDoc(postRef);
   if (postSnap.exists()) return postToJSON(postSnap);
   return null;
 }
 
-export async function getAnime(name) {
+export async function getAnime(name: string) {
   const animeRef = doc(database, "animes", name);
   const docSnap = await getDoc(animeRef);
   if (docSnap.exists()) return docSnap.data();
@@ -89,7 +96,7 @@ export async function getAnimes() {
   return animesSnap.docs.map((doc) => doc.data());
 }
 
-export async function getFilm(name) {
+export async function getFilm(name: string) {
   const filmRef = doc(database, "films", name);
   const docSnap = await getDoc(filmRef);
   if (docSnap.exists()) return docSnap.data();
@@ -102,7 +109,7 @@ export async function getFilms() {
   return filmsSnap.docs.map((doc) => doc.data());
 }
 
-export async function getSpecial(name) {
+export async function getSpecial(name: string) {
   const specialRef = doc(database, "specials", name);
   const docSnap = await getDoc(specialRef);
   if (docSnap.exists()) return docSnap.data();
@@ -127,7 +134,7 @@ export async function getStaff() {
   return staffSnap.docs.map((doc) => doc.data());
 }
 
-export async function setPost(post) {
+export async function setPost(post: Post) {
   try {
     await setDoc(doc(database, "posts", post.slug), {
       ...post,
@@ -140,7 +147,7 @@ export async function setPost(post) {
   }
 }
 
-export async function setNewStatus(status) {
+export async function setNewStatus(status: Status) {
   try {
     await setDoc(doc(database, "status", status.slug), status);
     return true;
@@ -150,9 +157,9 @@ export async function setNewStatus(status) {
   }
 }
 
-export async function updateStatus(status) {
+export async function updateStatus(status: Status) {
   try {
-    await updateDoc(doc(database, "status", status.slug), status);
+    await updateDoc(doc(database, "status", status.slug), { ...status });
     return true;
   } catch (e) {
     console.log(e);
@@ -160,7 +167,7 @@ export async function updateStatus(status) {
   }
 }
 
-export async function setAnime(anime) {
+export async function setAnime(anime: Anime) {
   try {
     await setDoc(doc(database, `${anime.type}s`, anime.slug), anime);
     return true;
@@ -170,7 +177,7 @@ export async function setAnime(anime) {
   }
 }
 
-export async function updatePost(post) {
+export async function updatePost(post: Post) {
   try {
     await updateDoc(doc(database, "posts", post.slug), {
       ...post,
@@ -182,7 +189,7 @@ export async function updatePost(post) {
   }
 }
 
-export async function deleteStatus(status) {
+export async function deleteStatus(status: Status) {
   try {
     await deleteDoc(doc(database, "status", status.slug));
     return true;
@@ -192,7 +199,7 @@ export async function deleteStatus(status) {
   }
 }
 
-export async function deletePost(post) {
+export async function deletePost(post: Post) {
   try {
     await deleteDoc(doc(database, "posts", post.slug));
     return true;
@@ -202,7 +209,7 @@ export async function deletePost(post) {
   }
 }
 
-export async function updateAnime(anime, prevAnime) {
+export async function updateAnime(anime: Anime, prevAnime: Anime) {
   if (anime.type !== prevAnime.type || anime.slug !== prevAnime.slug) {
     try {
       await deleteDoc(doc(database, `${prevAnime.type}s`, prevAnime.slug));
@@ -214,7 +221,9 @@ export async function updateAnime(anime, prevAnime) {
     }
   } else {
     try {
-      await updateDoc(doc(database, `${anime.type}s`, anime.slug), anime);
+      await updateDoc(doc(database, `${anime.type}s`, anime.slug), {
+        ...anime,
+      });
       return true;
     } catch (e) {
       console.log(e);
@@ -223,7 +232,7 @@ export async function updateAnime(anime, prevAnime) {
   }
 }
 
-export async function deleteAnime(anime) {
+export async function deleteAnime(anime: Anime) {
   try {
     await deleteDoc(doc(database, `${anime.type}s`, anime.slug));
     return true;
@@ -233,7 +242,7 @@ export async function deleteAnime(anime) {
   }
 }
 
-export function postToJSON(doc) {
+export function postToJSON(doc: QueryDocumentSnapshot<DocumentData>) {
   const data = doc.data();
   return {
     ...data,
@@ -241,13 +250,13 @@ export function postToJSON(doc) {
   };
 }
 
-export async function setUserInfo(user) {
+export async function setUserInfo(user: User) {
   try {
     await setDoc(doc(database, "users", user.uid), {
       email: user.email,
     });
   } catch (e) {
-    console.log((setUserError = { e }));
+    console.log({ e });
   }
 }
 
@@ -257,7 +266,7 @@ export async function loginWithGoogle() {
     const errorMessage = error.message;
     const email = error.email;
     const credential = GoogleAuthProvider.credentialFromError(error);
-    console.log((loginError = { errorCode, errorMessage, email, credential }));
+    console.log({ errorCode, errorMessage, email, credential });
   });
 }
 
@@ -265,7 +274,7 @@ export async function logoutFromGoogle() {
   await signOut(auth);
 }
 
-export async function checkAdmin(user) {
+export async function checkAdmin(user: User) {
   const staff = await getStaff();
   const admins = staff.filter((member) => member.admin);
   if (admins.length === 0) {

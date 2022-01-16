@@ -1,6 +1,6 @@
 import { Box, Text, Flex, Link } from "@chakra-ui/react";
 
-export default function Footer() {
+const Footer = () => {
   return (
     <Box width="100%">
       <Flex width="100%" flexDirection="column">
@@ -14,4 +14,6 @@ export default function Footer() {
       </Flex>
     </Box>
   );
-}
+};
+
+export default Footer;

@@ -14,9 +14,9 @@ import { useDisclosure } from "@chakra-ui/react";
 import React from "react";
 import { useRouter } from "next/router";
 
-export default function MenuDrawer() {
+const MenuDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
+  const btnRef = React.useRef(null);
   const router = useRouter();
 
   return (
@@ -92,4 +92,6 @@ export default function MenuDrawer() {
       </Drawer>
     </>
   );
-}
+};
+
+export default MenuDrawer;
