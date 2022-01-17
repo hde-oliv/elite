@@ -55,7 +55,6 @@ const AnimeItem = ({ anime, router }: AnimeItemProps) => {
           flexDirection="column"
           alignSelf="center"
           textAlign="center"
-          pl={{ base: "0%", xl: "0" }}
         >
           <Heading fontSize="2xl" mt="4%">
             {anime.title}
