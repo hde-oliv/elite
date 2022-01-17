@@ -1,24 +1,16 @@
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Box,
-  Textarea,
-  Center,
-  Input,
-  Flex,
-  Heading,
-  Text,
-  Select,
-  Button,
-} from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Text, Button } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import { useContext } from "react";
 import { convertToSlug, handleToast } from "../../../lib/Utils";
 import { setAnime } from "../../../lib/Firebase";
 import { UserContext } from "../../../lib/UserContext";
 import NavBar from "../../../components/NavBar";
-import { Formik, Field, Form, FormikHelpers } from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
+import {
+  SelectFieldBox,
+  FieldBox,
+  TextareaFieldBox,
+} from "../../../components/FieldBox";
 
 const AnimeCreatePage = () => {
   const { user, isAdmin } = useContext(UserContext);
@@ -45,86 +37,6 @@ const AnimeCreatePage = () => {
         <></>
       )}
     </>
-  );
-};
-
-interface GenerateFieldBoxProps {
-  name: string;
-  title: string;
-  isRequired: boolean;
-  placeholder: string;
-}
-
-const GenerateFieldBox = ({
-  name,
-  title,
-  isRequired,
-  placeholder,
-}: GenerateFieldBoxProps) => {
-  return (
-    <Field name={name}>
-      {({ field, form }: any) => (
-        <FormControl
-          mt="1%"
-          isRequired={isRequired}
-          isInvalid={form.errors.name && form.touched.name}
-        >
-          <FormLabel htmlFor={name}>{title}</FormLabel>
-          <Input {...field} id={name} placeholder={placeholder} />
-          <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-        </FormControl>
-      )}
-    </Field>
-  );
-};
-
-const GenerateTextareaFieldBox = ({
-  name,
-  title,
-  isRequired,
-  placeholder,
-}: GenerateFieldBoxProps) => {
-  return (
-    <Field name={name}>
-      {({ field, form }: any) => (
-        <FormControl
-          mt="1%"
-          isRequired={isRequired}
-          isInvalid={form.errors.name && form.touched.name}
-        >
-          <FormLabel htmlFor={name}>{title}</FormLabel>
-          <Textarea {...field} id={name} placeholder={placeholder} />
-          <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-        </FormControl>
-      )}
-    </Field>
-  );
-};
-
-const GenerateSelectFieldBox = ({
-  name,
-  title,
-  isRequired,
-  placeholder,
-}: GenerateFieldBoxProps) => {
-  return (
-    <Field name={name}>
-      {({ field, form }: any) => (
-        <FormControl
-          mt="1%"
-          isRequired={isRequired}
-          isInvalid={form.errors.name && form.touched.name}
-        >
-          <FormLabel htmlFor={name}>{title}</FormLabel>
-          <Select {...field} id={name} placeholder={placeholder}>
-            <option value="anime">Anime</option>
-            <option value="film">Film</option>
-            <option value="special">Special</option>
-          </Select>
-          <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-        </FormControl>
-      )}
-    </Field>
   );
 };
 
@@ -189,60 +101,61 @@ const AnimeCreateForm = () => {
       >
         {(props) => (
           <Form>
-            {GenerateFieldBox({
-              name: "title",
-              title: "Title",
-              isRequired: true,
-              placeholder: "Insert title",
-            })}
-            {GenerateFieldBox({
-              name: "image",
-              title: "Image Link",
-              isRequired: true,
-              placeholder: "Insert image link, only 16:9 images",
-            })}
-            {GenerateSelectFieldBox({
-              name: "type",
-              title: "Anime Type",
-              isRequired: true,
-              placeholder: "Select anime type",
-            })}
-            {GenerateFieldBox({
-              name: "folder",
-              title: "Folder Link",
-              isRequired: true,
-              placeholder: "Insert folder link",
-            })}
-            {GenerateFieldBox({
-              name: "torrentOne",
-              title: "Torrent",
-              isRequired: false,
-              placeholder: "Insert first torrent link",
-            })}
-            {GenerateFieldBox({
-              name: "torrentTwo",
-              title: "Torrent Two",
-              isRequired: false,
-              placeholder: "Insert second torrent link",
-            })}
-            {GenerateFieldBox({
-              name: "torrentThree",
-              title: "Torrent Three",
-              isRequired: false,
-              placeholder: "Insert third torrent link",
-            })}
-            {GenerateFieldBox({
-              name: "mal_url",
-              title: "MAL Link",
-              isRequired: true,
-              placeholder: "Insert MAL link",
-            })}
-            {GenerateTextareaFieldBox({
-              name: "description",
-              title: "Description",
-              isRequired: true,
-              placeholder: "Insert anime description",
-            })}
+            <FieldBox
+              name={"title"}
+              title="Title"
+              isRequired={true}
+              placeholder="Insert title"
+            />
+            <FieldBox
+              name={"image"}
+              title="Image Link"
+              isRequired={true}
+              placeholder="Insert image link, only 16:9 images"
+            />
+            <SelectFieldBox
+              name={"type"}
+              title="Anime Type"
+              list={["anime", "film", "special"]}
+              isRequired={true}
+              placeholder="Select anime type"
+            />
+            <FieldBox
+              name="folder"
+              title="Folder Link"
+              isRequired={true}
+              placeholder="Insert folder link"
+            />
+            <FieldBox
+              name="torrentOne"
+              title="Torrent"
+              isRequired={false}
+              placeholder="Insert first torrent link"
+            />
+            <FieldBox
+              name="torrentTwo"
+              title="Torrent Two"
+              isRequired={false}
+              placeholder="Insert second torrent link"
+            />
+            <FieldBox
+              name="torrentThree"
+              title="Torrent Three"
+              isRequired={false}
+              placeholder="Insert third torrent link"
+            />
+            <FieldBox
+              name="mal_url"
+              title="MAL Link"
+              isRequired={true}
+              placeholder="Insert MAL link"
+            />
+            <TextareaFieldBox
+              name="description"
+              title="Description"
+              isRequired={true}
+              placeholder="Insert anime description"
+            />
             <Center mt="4%" mb="2%" width="100%">
               <Button colorScheme="red" type="reset" mr="5%">
                 Cancel
