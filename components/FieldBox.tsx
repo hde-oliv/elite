@@ -86,11 +86,11 @@ export const SelectFieldBox = ({
         >
           <FormLabel htmlFor={name}>{title}</FormLabel>
           <Select {...field} id={name} placeholder={placeholder}>
-            {list.map((item, index) => {
+            {list.map((item, index) => (
               <option key={index} value={item}>
                 {item}
-              </option>;
-            })}
+              </option>
+            ))}
           </Select>
           <FormErrorMessage>{form.errors.name}</FormErrorMessage>
         </FormControl>
