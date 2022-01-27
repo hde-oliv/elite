@@ -43,6 +43,8 @@ const AnimeItem = ({ anime, router }: AnimeItemProps) => {
             height="275px"
             maxH="275px"
             minH="275px"
+            cursor="pointer"
+            onClick={() => router.push(`/${anime.type}s/${anime.slug}`)}
             width="187px"
             maxW="187px"
             minW="187px"
