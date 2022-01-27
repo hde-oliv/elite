@@ -42,10 +42,16 @@ const AnimeCreatePage = () => {
 
 const handleSubmit = (values: AnimeFormValues) => {
   const slug = convertToSlug(values.title);
+  let links;
+  if (values.anitsu === "") {
+    links = [values.drive];
+  } else {
+    links = [values.anitsu, values.drive];
+  }
   const anime = {
     description: values.description,
     image: values.image,
-    links: [values.folder],
+    links: links,
     mal_url: values.mal_url,
     slug,
     type: values.type,
@@ -58,7 +64,8 @@ const handleSubmit = (values: AnimeFormValues) => {
 interface AnimeFormValues {
   description: string;
   image: string;
-  folder: string;
+  drive: string;
+  anitsu: string;
   mal_url: string;
   title: string;
   torrentOne: string;
@@ -76,7 +83,8 @@ const AnimeCreateForm = () => {
         initialValues={{
           description: "",
           image: "",
-          folder: "",
+          drive: "",
+          anitsu: "",
           mal_url: "",
           title: "",
           torrentOne: "",
@@ -121,10 +129,16 @@ const AnimeCreateForm = () => {
               placeholder="Select anime type"
             />
             <FieldBox
-              name="folder"
-              title="Folder Link"
+              name="drive"
+              title="Drive Link"
               isRequired={true}
-              placeholder="Insert folder link"
+              placeholder="Insert drive link"
+            />
+            <FieldBox
+              name="anitsu"
+              title="Anitsu Link"
+              isRequired={false}
+              placeholder="Insert Anitsu link"
             />
             <FieldBox
               name="torrentOne"
