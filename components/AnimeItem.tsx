@@ -50,19 +50,18 @@ const TorrentBox = ({ links }: TorrentBoxProps) => {
 
 const LinksBox = ({ links }: LinksBoxProps) => {
   return (
-    <Box>
-      {links.length !== 1 ? (
-        <Grid templateColumns="repeat(12, 1fr)" gap={6}>
-          {links.map((link, index) => (
-            <Button key={index} onClick={() => window.open(link, "_blank")}>
-              {index + 1}
-            </Button>
-          ))}
-        </Grid>
+    <Center width="100%">
+      {links.length === 1 ? (
+        <Button onClick={() => window.open(links[0], "_blank")}>Drive</Button>
       ) : (
-        <Button onClick={() => window.open(links[0], "_blank")}>Link</Button>
+        <>
+          <Button onClick={() => window.open(links[0], "_blank")} mr="2%">
+            Anitsu
+          </Button>
+          <Button onClick={() => window.open(links[1], "_blank")}>Drive</Button>
+        </>
       )}
-    </Box>
+    </Center>
   );
 };
 
@@ -115,7 +114,7 @@ const AnimeItem = ({ anime }: AnimeItemProps) => {
           >
             {anime.description}
           </Text>
-          <Center flexDirection="column" pt="4%">
+          <Center flexDirection="column" pt="4%" width="100%">
             <LinksBox links={anime.links} />
             <TorrentBox links={anime.torrents} />
           </Center>
