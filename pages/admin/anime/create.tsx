@@ -46,7 +46,7 @@ const handleSubmit = (values: AnimeFormValues) => {
   if (values.anitsu === "") {
     links = [values.drive];
   } else {
-    links = [values.anitsu, values.drive];
+    links = [values.drive, values.anitsu];
   }
   const anime = {
     description: values.description,

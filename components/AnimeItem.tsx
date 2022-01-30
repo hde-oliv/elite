@@ -55,10 +55,10 @@ const LinksBox = ({ links }: LinksBoxProps) => {
         <Button onClick={() => window.open(links[0], "_blank")}>Drive</Button>
       ) : (
         <>
-          <Button onClick={() => window.open(links[0], "_blank")} mr="2%">
+          <Button onClick={() => window.open(links[1], "_blank")} mr="2%">
             Anitsu
           </Button>
-          <Button onClick={() => window.open(links[1], "_blank")}>Drive</Button>
+          <Button onClick={() => window.open(links[0], "_blank")}>Drive</Button>
         </>
       )}
     </Center>
