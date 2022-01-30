@@ -205,7 +205,7 @@ export default function PostCreatePage({ staff, titles }) {
                         <FormLabel>Text</FormLabel>
                         <Textarea
                           value={text}
-                          placeholder="Accepts markdown (use '&NewLine;' followed by a new line to insert a empty line)"
+                          placeholder="Text that will appear on post page"
                           onChange={handleTextChange}
                         />
                       </FormControl>
