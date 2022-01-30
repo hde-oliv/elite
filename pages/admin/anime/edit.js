@@ -148,6 +148,7 @@ function SelectedAnimeInfo({ animeInfo }) {
   const [description, setDescription] = useState(animeInfo.description);
   const [type, setType] = useState(animeInfo.type);
   const [folder, setFolder] = useState(animeInfo.links[0]);
+  const [anitsu, setAnitsu] = useState(animeInfo.links[1]);
   const [mal_url, setMalUrl] = useState(animeInfo.mal_url);
   const [torrentOne, setTorrentOne] = useState(animeInfo.torrents[0]);
   const [torrentTwo, setTorrentTwo] = useState(animeInfo.torrents[1]);
@@ -162,6 +163,7 @@ function SelectedAnimeInfo({ animeInfo }) {
   const handleDescriptionChange = (event) => setDescription(event.target.value);
   const handleMalUrlChange = (event) => setMalUrl(event.target.value);
   const handleFolderChange = (event) => setFolder(event.target.value);
+  const handleAnitsuChange = (event) => setAnitsu(event.target.value);
   const handleTorrentOneChange = (event) => setTorrentOne(event.target.value);
   const handleTorrentTwoChange = (event) => setTorrentTwo(event.target.value);
   const handleTorrentThreeChange = (event) =>
@@ -200,7 +202,7 @@ function SelectedAnimeInfo({ animeInfo }) {
     const anime = {
       description,
       image,
-      links: [folder],
+      links: [folder, anitsu],
       mal_url,
       slug,
       type,
@@ -277,6 +279,14 @@ function SelectedAnimeInfo({ animeInfo }) {
           placeholder="Insert folder link"
           value={folder}
           onChange={handleFolderChange}
+        />
+      </FormControl>
+      <FormControl id="anitsu_link">
+        <FormLabel>Anitsu</FormLabel>
+        <Input
+          placeholder="Insert Anitsu link"
+          value={anitsu}
+          onChange={handleAnitsuChange}
         />
       </FormControl>
       <FormControl id="torrent_links">
