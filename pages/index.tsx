@@ -215,6 +215,47 @@ const PostBox = ({
   );
 };
 
+const AnitsuBox = () => {
+  const router = useRouter();
+
+  return (
+    <Box
+      boxShadow="lg"
+      rounded="md"
+      borderRadius="md"
+      ml="1%"
+      mt="10%"
+      transition="box-shadow 0.2s"
+      _hover={{
+        boxShadow: "xl",
+      }}
+      width="100%"
+      textAlign="center"
+      p="6%"
+    >
+      <Heading size="md">Anitsu - Armazém de Animes</Heading>
+      <Divider size="2px" pt="4%" />
+      <Container
+        centerContent
+        maxW="container.xl"
+        width={{ base: "100%", lg: "90%" }}
+        mt="4%"
+      >
+        <Image
+          width="100%"
+          height="100%"
+          boxSize="100%"
+          src="https://i.imgur.com/40NpWNx.png"
+          alt="anitsu"
+          onClick={() => window.open("https://anitsu.com.br/", "_blank")}
+          borderRadius="md"
+          cursor="pointer"
+        />
+      </Container>
+    </Box>
+  );
+};
+
 const SideBar = ({ statusList }: SideBarProps) => {
   return (
     <Flex
@@ -225,8 +266,9 @@ const SideBar = ({ statusList }: SideBarProps) => {
       flexDirection="column"
       justifyContent="space-between"
     >
-      <Center alignSelf="start" width="100%">
+      <Center alignSelf="start" flexDirection="column" width="100%">
         <StatusBox statusList={statusList} />
+        <AnitsuBox />
       </Center>
     </Flex>
   );
